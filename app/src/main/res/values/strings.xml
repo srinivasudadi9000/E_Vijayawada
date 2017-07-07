@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">E_Vijayawada</string>
+    <string name="hint_username">username</string>
+    <string name="input_password">password</string>
+</resources>
