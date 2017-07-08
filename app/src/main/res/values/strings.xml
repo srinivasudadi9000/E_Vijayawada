@@ -2,4 +2,16 @@
     <string name="app_name">E_Vijayawada</string>
     <string name="hint_username">username</string>
     <string name="input_password">password</string>
+    <string name="title_activity_home">home</string>
+    <string-array name="planets_array">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
+
 </resources>
