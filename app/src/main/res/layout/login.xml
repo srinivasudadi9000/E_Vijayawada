@@ -33,11 +33,11 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:id="@+id/logo"
+                    android:id="@+id/applogo"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center"
-                    android:src="@mipmap/ic_launcher_round" />
+                    android:src="@drawable/aplogo" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -76,6 +76,7 @@
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/button"
+                android:background="@color/colorPrimary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
@@ -83,10 +84,13 @@
                 android:layout_marginRight="10dp">
 
                 <Button
+                    android:background="@color/colorPrimary"
+                    android:height="50dp"
+                    android:gravity="center"
                     android:id="@+id/btn_login"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary"
+                    android:textStyle="bold"
                     android:text="Login"
                     android:textColor="#ffffff"
                     android:textSize="18dp" />

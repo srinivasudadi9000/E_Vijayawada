@@ -4,14 +4,12 @@
     <string name="input_password">password</string>
     <string name="title_activity_home">home</string>
     <string-array name="planets_array">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
+        <item>--Select--</item>
+        <item>Status</item>
+        <item>Verified</item>
+        <item>Pending</item>
+        <item>Process</item>
+
     </string-array>
 
 </resources>
