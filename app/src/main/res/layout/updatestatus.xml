@@ -59,7 +59,7 @@
 
                     <TextView
                         android:layout_weight="1"
-                         android:gravity="left"
+                        android:gravity="left"
                         android:padding="8dp"
                         android:text="Application Number "
                         android:textColor="#000000"
@@ -328,7 +328,7 @@
                     android:background="@drawable/border">
 
                     <TextView
-                         android:layout_weight="0.8"
+                        android:layout_weight="0.8"
                         android:gravity="left"
                         android:padding="8dp"
                         android:text="Address"
@@ -382,6 +382,7 @@
                 android:gravity="center">
 
                 <Spinner
+                    android:id="@+id/spinner"
                     android:layout_gravity="center"
                     android:textColor="#000000"
                     android:hint="Enter Remarks "

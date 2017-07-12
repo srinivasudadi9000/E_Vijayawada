@@ -11,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,11 +31,13 @@ public class updatestatus extends Activity {
             locality, doorno, address_tv, grievance_des_tv;
     SharedPreferences sharedPreferences;
     String officerid;
+    Spinner spinner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.updatestatus);
         search = (EditText) findViewById(R.id.search);
+        spinner = (Spinner)findViewById(R.id.spinner);
         application_no = (TextView) findViewById(R.id.application_no);
         grievance_type = (TextView) findViewById(R.id.grievance_type);
         applicant_name = (TextView) findViewById(R.id.applicant_name);
@@ -54,12 +57,18 @@ public class updatestatus extends Activity {
             @Override
             public void onClick(View v) {
                 if (search.getText().toString().length() == 13) {
-                    Toast.makeText(getApplicationContext(), "three", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getApplicationContext(), "34", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getApplicationContext(), "three", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getApplicationContext(), "34", Toast.LENGTH_SHORT).show();
                     new updatestatus.getstatus(search.getText().toString()).execute();
                 }
             }
         });
+
+         final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.planets_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
     }
     private class getstatus extends AsyncTask<String, String, JSONObject> {
 
