@@ -1,0 +1,324 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bluebackgroundbox">
+
+
+    <ScrollView
+        android:id="@+id/sc_table"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+
+        android:layout_below="@+id/ll_header"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical">
+            <android.support.design.widget.TextInputLayout
+                 android:id="@+id/Logo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center">
+
+                <EditText
+                    android:drawableRight="@drawable/search"
+                    android:id="@+id/search"
+                    android:paddingLeft="5dp"
+                    android:hint="Grievance Number "
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/ll_header"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@drawable/border"
+                android:shrinkColumns="1"
+                android:stretchColumns="1">
+
+
+                <TableRow
+                    android:id="@+id/tr_9"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border">
+
+                    <TextView
+                        android:layout_weight="0.8"
+
+                        android:gravity="left"
+                        android:padding="8dp"
+                        android:text="Name/ పేరు "
+                        android:textColor="#000000"
+
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_weight="1.2"
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text=""
+                        android:textColor="#000000"
+                        android:textSize="14dp"
+                        android:textStyle="normal" />
+                </TableRow>
+
+
+                <TableRow
+                    android:id="@+id/tr_15"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border">
+
+                    <TextView
+                        android:layout_weight="0.8"
+
+                        android:gravity="left"
+                        android:padding="8dp"
+                        android:text="Aadhar ID/ ఆధార్  నెంబర్ "
+                        android:textColor="#000000"
+
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/tv_aadhar"
+                        android:layout_weight="1.2"
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text=""
+                        android:textColor="#000000"
+                        android:textSize="14dp"
+                        android:textStyle="normal" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tr_14"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border">
+
+                    <TextView
+                        android:layout_weight="0.8"
+
+                        android:gravity="left"
+                        android:padding="8dp"
+                        android:text="Mobile No /  మొబైల్ నెంబర్ "
+                        android:textColor="#000000"
+
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/tv_mobileno"
+                        android:layout_weight="1.2"
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text=""
+                        android:textColor="#000000"
+                        android:textSize="14dp"
+                        android:textStyle="normal" />
+                </TableRow>
+
+
+                <TableRow
+                    android:id="@+id/tr_7"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border">
+
+                    <TextView
+                        android:layout_weight="0.8"
+
+                        android:gravity="left"
+                        android:padding="8dp"
+                        android:text="@string/email_id"
+                        android:textColor="#000000"
+
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/tv_email"
+                        android:layout_weight="1.2"
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text=""
+                        android:textColor="#000000"
+                        android:textSize="14dp"
+                        android:textStyle="normal" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tr_12"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border">
+
+                    <TextView
+
+                        android:gravity="left"
+                        android:padding="8dp"
+                        android:text="Mandal Name/ మండలం పేరు"
+                        android:textColor="#000000"
+
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/tv_mandal_id"
+                        android:layout_weight="1.2"
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text=""
+                        android:textColor="#000000"
+                        android:textSize="14dp"
+                        android:textStyle="normal" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tr_13"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border">
+
+                    <TextView
+                        android:layout_weight="0.8"
+                        android:gravity="left"
+                        android:padding="8dp"
+                        android:text="Village Name/ గ్రామం పేరు "
+                        android:textColor="#000000"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/tv_village_id"
+                        android:layout_weight="1.2"
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text=""
+                        android:textColor="#000000"
+                        android:textSize="14dp"
+                        android:textStyle="normal" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tr_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border">
+
+                    <TextView
+
+                        android:layout_width="5dp"
+                        android:gravity="left"
+                        android:padding="8dp"
+                        android:text="Survey Number / సర్వే సంఖ్య "
+                        android:textColor="#000000"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/tv_complaitnto_answer"
+                        android:layout_weight="1.2"
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text=""
+                        android:textColor="#000000"
+                        android:textSize="14dp"
+                        android:textStyle="normal" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tr_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border">
+
+                    <TextView
+                        android:layout_width="5dp"
+                        android:gravity="left"
+                        android:padding="8dp"
+                        android:text="Extent "
+                        android:textColor="#000000"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/tv_complaintdes_answer"
+                        android:layout_weight="1.2"
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text=""
+                        android:textColor="#000000"
+                        android:textSize="14dp"
+                        android:textStyle="normal" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tr_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_weight="0.8"
+                        android:gravity="left"
+                        android:padding="8dp"
+                        android:text="ServiceList / సేవ జాబితా"
+                        android:textColor="#000000"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/tv_address"
+                        android:layout_weight="1.2"
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text=""
+                        android:textColor="#000000"
+                        android:textSize="14dp"
+                        android:textStyle="normal" />
+                </TableRow>
+
+            </TableLayout>
+
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+    <LinearLayout
+        android:id="@+id/ll_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

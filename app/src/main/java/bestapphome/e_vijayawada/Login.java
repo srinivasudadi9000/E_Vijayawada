@@ -47,7 +47,7 @@ public class Login extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_login:
-                Intent i = new Intent(getApplicationContext(), home.class);
+                Intent i = new Intent(getApplicationContext(), updatestatus.class);
                 startActivity(i);
                 break;
             case R.id.input_usename:
