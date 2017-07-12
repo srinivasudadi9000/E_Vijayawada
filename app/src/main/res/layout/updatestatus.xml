@@ -33,7 +33,7 @@
                     android:drawableRight="@drawable/search"
                     android:id="@+id/search"
                     android:paddingLeft="5dp"
-                    android:hint="Grievance Number "
+                    android:hint="Grievance Number (2017-VMC-1002)"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -51,24 +51,24 @@
 
 
                 <TableRow
+                    android:layout_weight="2"
                     android:id="@+id/tr_9"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/border">
 
                     <TextView
-                        android:layout_weight="0.8"
-
-                        android:gravity="left"
+                        android:layout_weight="1"
+                         android:gravity="left"
                         android:padding="8dp"
-                        android:text="Name/ పేరు "
+                        android:text="Application Number "
                         android:textColor="#000000"
 
                         android:textSize="14dp" />
 
                     <TextView
-                        android:id="@+id/tv_name"
-                        android:layout_weight="1.2"
+                        android:id="@+id/application_no"
+                        android:layout_weight="1"
                         android:background="@drawable/border"
                         android:gravity="center"
                         android:padding="8dp"
@@ -87,16 +87,15 @@
 
                     <TextView
                         android:layout_weight="0.8"
-
                         android:gravity="left"
                         android:padding="8dp"
-                        android:text="Aadhar ID/ ఆధార్  నెంబర్ "
+                        android:text="Grievance Type "
                         android:textColor="#000000"
 
                         android:textSize="14dp" />
 
                     <TextView
-                        android:id="@+id/tv_aadhar"
+                        android:id="@+id/grievance_type"
                         android:layout_weight="1.2"
                         android:background="@drawable/border"
                         android:gravity="center"
@@ -118,13 +117,13 @@
 
                         android:gravity="left"
                         android:padding="8dp"
-                        android:text="Mobile No /  మొబైల్ నెంబర్ "
+                        android:text="Applicant Name"
                         android:textColor="#000000"
 
                         android:textSize="14dp" />
 
                     <TextView
-                        android:id="@+id/tv_mobileno"
+                        android:id="@+id/applicant_name"
                         android:layout_weight="1.2"
                         android:background="@drawable/border"
                         android:gravity="center"
@@ -147,13 +146,13 @@
 
                         android:gravity="left"
                         android:padding="8dp"
-                        android:text="@string/email_id"
+                        android:text="Mobile Number"
                         android:textColor="#000000"
 
                         android:textSize="14dp" />
 
                     <TextView
-                        android:id="@+id/tv_email"
+                        android:id="@+id/mobile_number"
                         android:layout_weight="1.2"
                         android:background="@drawable/border"
                         android:gravity="center"
@@ -174,13 +173,13 @@
 
                         android:gravity="left"
                         android:padding="8dp"
-                        android:text="Mandal Name/ మండలం పేరు"
+                        android:text="Concern Officer"
                         android:textColor="#000000"
 
                         android:textSize="14dp" />
 
                     <TextView
-                        android:id="@+id/tv_mandal_id"
+                        android:id="@+id/concern_officer"
                         android:layout_weight="1.2"
                         android:background="@drawable/border"
                         android:gravity="center"
@@ -201,12 +200,12 @@
                         android:layout_weight="0.8"
                         android:gravity="left"
                         android:padding="8dp"
-                        android:text="Village Name/ గ్రామం పేరు "
+                        android:text="Aadhar Number"
                         android:textColor="#000000"
                         android:textSize="14dp" />
 
                     <TextView
-                        android:id="@+id/tv_village_id"
+                        android:id="@+id/aadhar_no"
                         android:layout_weight="1.2"
                         android:background="@drawable/border"
                         android:gravity="center"
@@ -228,12 +227,12 @@
                         android:layout_width="5dp"
                         android:gravity="left"
                         android:padding="8dp"
-                        android:text="Survey Number / సర్వే సంఖ్య "
+                        android:text="Department Name"
                         android:textColor="#000000"
                         android:textSize="14dp" />
 
                     <TextView
-                        android:id="@+id/tv_complaitnto_answer"
+                        android:id="@+id/depart_name"
                         android:layout_weight="1.2"
                         android:background="@drawable/border"
                         android:gravity="center"
@@ -254,12 +253,12 @@
                         android:layout_width="5dp"
                         android:gravity="left"
                         android:padding="8dp"
-                        android:text="Extent "
+                        android:text="Ward No "
                         android:textColor="#000000"
                         android:textSize="14dp" />
 
                     <TextView
-                        android:id="@+id/tv_complaintdes_answer"
+                        android:id="@+id/ward_no"
                         android:layout_weight="1.2"
                         android:background="@drawable/border"
                         android:gravity="center"
@@ -281,12 +280,88 @@
                         android:layout_weight="0.8"
                         android:gravity="left"
                         android:padding="8dp"
-                        android:text="ServiceList / సేవ జాబితా"
+                        android:text="Locality"
                         android:textColor="#000000"
                         android:textSize="14dp" />
 
                     <TextView
-                        android:id="@+id/tv_address"
+                        android:id="@+id/locality"
+                        android:layout_weight="1.2"
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text=""
+                        android:textColor="#000000"
+                        android:textSize="14dp"
+                        android:textStyle="normal" />
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tr_11"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border">
+
+                    <TextView
+                        android:id="@+id/textView11"
+                        android:layout_weight="0.8"
+                        android:gravity="left"
+                        android:padding="8dp"
+                        android:text="Door No."
+                        android:textColor="#000000"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/doorno"
+                        android:layout_weight="1.2"
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text=""
+                        android:textColor="#000000"
+                        android:textSize="14dp"
+                        android:textStyle="normal" />
+                </TableRow>
+                <TableRow
+                    android:id="@+id/address"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border">
+
+                    <TextView
+                         android:layout_weight="0.8"
+                        android:gravity="left"
+                        android:padding="8dp"
+                        android:text="Address"
+                        android:textColor="#000000"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/address_tv"
+                        android:layout_weight="1.2"
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text=""
+                        android:textColor="#000000"
+                        android:textSize="14dp"
+                        android:textStyle="normal" />
+                </TableRow>
+                <TableRow
+                    android:id="@+id/grievance_des"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border">
+
+                    <TextView
+                        android:layout_weight="0.8"
+                        android:gravity="left"
+                        android:padding="8dp"
+                        android:text="Grievance Description"
+                        android:textColor="#000000"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/grievance_des_tv"
                         android:layout_weight="1.2"
                         android:background="@drawable/border"
                         android:gravity="center"
@@ -298,8 +373,55 @@
                 </TableRow>
 
             </TableLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center">
 
+                <Spinner
+                    android:layout_gravity="center"
+                    android:textColor="#000000"
+                    android:hint="Enter Remarks "
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center">
+
+                <EditText
+                    android:layout_gravity="center"
+                    android:textColor="#000000"
+                     android:hint="Enter Remarks "
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:textColor="#000000"
+                    android:hint="Upload Photos : "
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </android.support.design.widget.TextInputLayout>
 
         </LinearLayout>
 
