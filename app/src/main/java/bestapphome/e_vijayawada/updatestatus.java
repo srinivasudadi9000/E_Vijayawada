@@ -59,8 +59,8 @@ public class updatestatus extends Activity {
             @Override
             public void onClick(View v) {
                 if (search.getText().toString().length() == 13) {
-                   // Toast.makeText(getApplicationContext(), "three", Toast.LENGTH_SHORT).show();
-                   // Toast.makeText(getApplicationContext(), "34", Toast.LENGTH_SHORT).show();
+                     Toast.makeText(getApplicationContext(), "three", Toast.LENGTH_SHORT).show();
+                     Toast.makeText(getApplicationContext(), "34", Toast.LENGTH_SHORT).show();
                     new updatestatus.getstatus(search.getText().toString()).execute();
                 }
             }
