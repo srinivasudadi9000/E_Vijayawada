@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -18,10 +19,16 @@ public class MainActivity extends Activity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-
-                Intent i = new Intent(getApplicationContext(),Login.class);
-                startActivity(i);
-                //Do something after 100ms
+                SharedPreferences sharedPreferences = getSharedPreferences("validuser", MODE_PRIVATE);
+                Toast.makeText(MainActivity.this,sharedPreferences.getString("name",""),Toast.LENGTH_SHORT).show();
+              if ( sharedPreferences.getString("name","").equals("")){
+                  Intent i = new Intent(getApplicationContext(),Login.class);
+                  startActivity(i);
+                  //Do something after 100ms
+              }else {
+                  Intent ee = new Intent(getApplicationContext(),updatestatus.class);
+                  startActivity(ee);
+              }
             }
         }, 3000);
 

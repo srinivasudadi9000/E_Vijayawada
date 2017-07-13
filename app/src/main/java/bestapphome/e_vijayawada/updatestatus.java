@@ -28,7 +28,7 @@ import bestapphome.e_vijayawada.json.JSONParser;
 public class updatestatus extends Activity {
     EditText search;
     TextView application_no, grievance_type, applicant_name, mobile_number, concern_officer, aadhar_no, depart_name, ward_no,
-            locality, doorno, address_tv, grievance_des_tv;
+            locality, doorno, address_tv, grievance_des_tv,officername;
     SharedPreferences sharedPreferences;
     String officerid;
     Spinner spinner;
@@ -38,6 +38,7 @@ public class updatestatus extends Activity {
         setContentView(R.layout.updatestatus);
         search = (EditText) findViewById(R.id.search);
         spinner = (Spinner)findViewById(R.id.spinner);
+        officername = (TextView) findViewById(R.id.officername);
         application_no = (TextView) findViewById(R.id.application_no);
         grievance_type = (TextView) findViewById(R.id.grievance_type);
         applicant_name = (TextView) findViewById(R.id.applicant_name);
@@ -52,7 +53,8 @@ public class updatestatus extends Activity {
         locality = (TextView) findViewById(R.id.locality);
         sharedPreferences = getSharedPreferences("Userinfo",MODE_PRIVATE);
         officerid =sharedPreferences.getString("intofficerid",null);
-
+        SharedPreferences sharedPreferences = getSharedPreferences("Userinfo", MODE_PRIVATE);
+        officername.setText(": "+sharedPreferences.getString("username",""));
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,6 +70,8 @@ public class updatestatus extends Activity {
                 R.array.planets_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+
+
 
     }
     private class getstatus extends AsyncTask<String, String, JSONObject> {

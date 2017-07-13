@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class validations {
+	public  String validuser = "false";
 	private static final String TAG = null;
 	private static int internetStatus;
 	private static String internetType;
@@ -98,8 +99,8 @@ public class validations {
 				activity);
 
 		// set title
-		alertDialogBuilder.setTitle("MESSAGE");
-
+		alertDialogBuilder.setTitle(alert_msg);
+		alertDialogBuilder.setIcon(R.drawable.aplogo);
 		// set dialog message
 		alertDialogBuilder.setMessage(alert_msg).setCancelable(false)
 				.setPositiveButton("OK", new DialogInterface.OnClickListener() {

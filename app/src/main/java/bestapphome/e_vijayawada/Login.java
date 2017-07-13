@@ -3,7 +3,9 @@ package bestapphome.e_vijayawada;
 import android.animation.AnimatorInflater;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -60,8 +62,16 @@ public class Login extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_login:
+                if (input_usename.getText().length()==0){
+                    showalert("UserId should not be empty");
 
-                new Login.getstatus(input_usename.getText().toString(), input_usename.getText().toString()).execute();
+                }else if (input_password.getText().length()==0){
+                    showalert("Password should not be empty");
+
+                }else {
+                    new Login.getstatus(input_usename.getText().toString(), input_password.getText().toString()).execute();
+
+                }
                 break;
             case R.id.input_usename:
                 Animation myAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.bounce);
@@ -117,13 +127,32 @@ public class Login extends Activity implements View.OnClickListener {
                     Intent ii = new Intent(getApplicationContext(), updatestatus.class);
                     startActivity(ii);
 
+                    SharedPreferences ss = getSharedPreferences("validuser", MODE_PRIVATE);
+                    SharedPreferences.Editor ee = ss.edit();
+                    ee.putString("name", "true");
+                    ee.commit();
                 }
             } catch (JSONException e) {
-                e.printStackTrace();
+                showalert("Invalid Password ");
             }
-
-
         }
+    }
+
+    void showalert(String alert_msg){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Login.this);
+        alertDialogBuilder.setTitle("Error Message");
+        alertDialogBuilder.setIcon(R.drawable.aplogo);
+        // set dialog message
+        alertDialogBuilder.setMessage(alert_msg).setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                });
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        // show it
+        alertDialog.show();
     }
 
 }
