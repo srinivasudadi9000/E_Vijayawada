@@ -6,10 +6,8 @@
     <string name="email_id">home</string>
     <string-array name="planets_array">
         <item>--Select--</item>
-        <item>Status</item>
-        <item>Verified</item>
-        <item>Pending</item>
-        <item>Process</item>
+        <item>Redressed</item>
+        <item>Rejected</item>
 
     </string-array>
 

@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -47,6 +49,7 @@ public class Login extends Activity implements View.OnClickListener {
         input_password = (EditText) findViewById(R.id.input_password);
         btn_login.setOnClickListener(Login.this);
         logo = (ImageView) findViewById(R.id.applogo);
+        hidekeyboard();
       /*  Animation myAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blinking);
         logo.startAnimation(myAnim);*/
      /*   ObjectAnimator anim = (ObjectAnimator) AnimatorInflater.loadAnimator(getApplicationContext(), R.animator.flipping);
@@ -126,7 +129,7 @@ public class Login extends Activity implements View.OnClickListener {
                     editor.commit();
                     Intent ii = new Intent(getApplicationContext(), updatestatus.class);
                     startActivity(ii);
-
+                    finish();
                     SharedPreferences ss = getSharedPreferences("validuser", MODE_PRIVATE);
                     SharedPreferences.Editor ee = ss.edit();
                     ee.putString("name", "true");
@@ -140,8 +143,8 @@ public class Login extends Activity implements View.OnClickListener {
 
     void showalert(String alert_msg){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Login.this);
-        alertDialogBuilder.setTitle("Error Message");
-        alertDialogBuilder.setIcon(R.drawable.aplogo);
+        alertDialogBuilder.setTitle("E_Vijayawada");
+      ///  alertDialogBuilder.setIcon(R.drawable.aplogo);
         // set dialog message
         alertDialogBuilder.setMessage(alert_msg).setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -153,6 +156,10 @@ public class Login extends Activity implements View.OnClickListener {
         AlertDialog alertDialog = alertDialogBuilder.create();
         // show it
         alertDialog.show();
+    }
+    void hidekeyboard(){
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
 }
