@@ -447,6 +447,12 @@ public class updatestatus extends Activity implements View.OnClickListener {
                 }
                 break;
             case R.id.logout:
+
+                SharedPreferences ss = getSharedPreferences("validuser", MODE_PRIVATE);
+                SharedPreferences.Editor ee = ss.edit();
+                ee.putString("name", "");
+                ee.commit();
+
                 Intent i = new Intent(updatestatus.this,Login.class);
                 startActivity(i);
                 finish();
@@ -489,7 +495,7 @@ public class updatestatus extends Activity implements View.OnClickListener {
                     JSONObject value = jsonObject.getJSONObject(i);
                     //    Toast.makeText(getApplicationContext(), value.getString("intUserid").toString(), Toast.LENGTH_SHORT).show();
                     application_no.setText(value.getString("App_No"));
-                    grievance_type.setText(value.getString("intGrivanceid"));
+                    grievance_type.setText(value.getString("ServiceName"));
                     applicant_name.setText(value.getString("ApplicantName"));
                     mobile_number.setText(value.getString("ApplMobile"));
                     concern_officer.setText(value.getString("OfficerName"));

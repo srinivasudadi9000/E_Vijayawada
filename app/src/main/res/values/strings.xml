@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">E_Vijayawada</string>
-    <string name="hint_username">username</string>
-    <string name="input_password">password</string>
+    <string name="hint_username">Username</string>
+    <string name="input_password">Password</string>
     <string name="title_activity_home">home</string>
     <string name="email_id">home</string>
     <string-array name="planets_array">

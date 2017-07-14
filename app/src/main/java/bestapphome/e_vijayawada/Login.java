@@ -144,7 +144,7 @@ public class Login extends Activity implements View.OnClickListener {
                     ee.commit();
                 }
             } catch (JSONException e) {
-                showalert("Invalid Password ");
+                showalert(" Invalid User Credentials ");
             }
         }
     }

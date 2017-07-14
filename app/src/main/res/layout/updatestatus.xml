@@ -114,7 +114,7 @@
                         android:layout_weight="1"
                         android:gravity="left"
                         android:padding="8dp"
-                        android:text="Application Number "
+                        android:text="Grievance  Number "
                         android:textColor="#000000"
                         android:textSize="14dp" />
 
@@ -443,7 +443,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:layout_marginLeft="5dp"
-                    android:text="Application Staus :"
+                    android:text=" Grievance Status :"
                     android:textColor="#000000"
                     android:textSize="15dp" />
 
@@ -593,8 +593,7 @@
                 android:layout_height="45dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/searchbackgroundbox"
-                android:backgroundTint="@color/colorPrimary"
+                android:background="#1E90FF"
                 android:text="Submit"
                 android:textColor="#ffffff" />
 
