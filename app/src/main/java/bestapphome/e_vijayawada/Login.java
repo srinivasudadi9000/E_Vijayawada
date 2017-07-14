@@ -37,19 +37,19 @@ public class Login extends Activity implements View.OnClickListener {
     Button btn_login;
     EditText input_usename, input_password;
     ImageView logo;
-
+    ProgressDialog progress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-
+        clearPreferences();
         btn_login = (Button) findViewById(R.id.btn_login);
         input_usename = (EditText) findViewById(R.id.input_usename);
         input_password = (EditText) findViewById(R.id.input_password);
         btn_login.setOnClickListener(Login.this);
         logo = (ImageView) findViewById(R.id.applogo);
-        hidekeyboard();
+
       /*  Animation myAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blinking);
         logo.startAnimation(myAnim);*/
      /*   ObjectAnimator anim = (ObjectAnimator) AnimatorInflater.loadAnimator(getApplicationContext(), R.animator.flipping);
@@ -59,19 +59,27 @@ public class Login extends Activity implements View.OnClickListener {
         anim.start();*/
 
         input_usename.setOnClickListener(Login.this);
-    }
+
+     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_login:
-                if (input_usename.getText().length()==0){
+                if (input_usename.getText().length() == 0) {
                     showalert("UserId should not be empty");
 
-                }else if (input_password.getText().length()==0){
+                } else if (input_password.getText().length() == 0) {
                     showalert("Password should not be empty");
 
-                }else {
+                } else {
+
+                    progress = new ProgressDialog(this);
+                    progress.setMessage("Authenticating User..");
+                    progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                    progress.setIndeterminate(true);
+                    progress.setCancelable(false);
+                    progress.show();
                     new Login.getstatus(input_usename.getText().toString(), input_password.getText().toString()).execute();
 
                 }
@@ -112,7 +120,7 @@ public class Login extends Activity implements View.OnClickListener {
         @Override
         protected void onPostExecute(JSONObject json) {
             // Toast.makeText(getApplicationContext(), json.toString(), Toast.LENGTH_SHORT).show();
-
+            progress.dismiss();
             try {
                 JSONArray jsonObject = json.getJSONArray("users");
                 for (int i = 0; i < jsonObject.length(); i++) {
@@ -141,10 +149,10 @@ public class Login extends Activity implements View.OnClickListener {
         }
     }
 
-    void showalert(String alert_msg){
+    void showalert(String alert_msg) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Login.this);
         alertDialogBuilder.setTitle("E_Vijayawada");
-      ///  alertDialogBuilder.setIcon(R.drawable.aplogo);
+        ///  alertDialogBuilder.setIcon(R.drawable.aplogo);
         // set dialog message
         alertDialogBuilder.setMessage(alert_msg).setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -157,9 +165,21 @@ public class Login extends Activity implements View.OnClickListener {
         // show it
         alertDialog.show();
     }
-    void hidekeyboard(){
-        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
+    void hidekeyboard() {
+        InputMethodManager inputManager = (InputMethodManager) Login.this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
+    private void clearPreferences() {
+        try {
+            // clearing app data
+            Runtime runtime = Runtime.getRuntime();
+            runtime.exec("pm clear YOUR_APP_PACKAGE_GOES HERE");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

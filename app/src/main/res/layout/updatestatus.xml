@@ -71,7 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableRight="@drawable/search"
-            android:hint="Grievance Number (2017-VMC-1002)"
+            android:hint="Grievance Number (2017-VMS-1002)"
             android:paddingLeft="5dp" />
 
     </android.support.design.widget.TextInputLayout>

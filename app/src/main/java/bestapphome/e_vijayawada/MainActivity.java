@@ -15,12 +15,13 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        clearPreferences();
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 SharedPreferences sharedPreferences = getSharedPreferences("validuser", MODE_PRIVATE);
-                Toast.makeText(MainActivity.this,sharedPreferences.getString("name",""),Toast.LENGTH_SHORT).show();
+               // Toast.makeText(MainActivity.this,sharedPreferences.getString("name",""),Toast.LENGTH_SHORT).show();
               if ( sharedPreferences.getString("name","").equals("")){
                   Intent i = new Intent(getApplicationContext(),Login.class);
                   startActivity(i);
@@ -33,4 +34,15 @@ public class MainActivity extends Activity {
         }, 3000);
 
     }
+    private void clearPreferences() {
+        try {
+            // clearing app data
+            Runtime runtime = Runtime.getRuntime();
+            runtime.exec("pm clear YOUR_APP_PACKAGE_GOES HERE");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

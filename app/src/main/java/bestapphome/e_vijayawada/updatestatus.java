@@ -67,7 +67,7 @@ public class updatestatus extends Activity implements View.OnClickListener {
     Bitmap scaledBitmap = null, scaledBitmap2 = null, scaledBitmap3 = null;
     private static String TAG = "PermissionDemo";
     private static final int RECORD_REQUEST_CODE = 101;
-
+    ProgressDialog progress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,7 +102,7 @@ public class updatestatus extends Activity implements View.OnClickListener {
         submit.setOnClickListener(updatestatus.this);
         logout.setOnClickListener(updatestatus.this);
         selectmyimages = "novalue";
-        hidekeyboard();
+        //hidekeyboard();
         sharedPreferences = getSharedPreferences("Userinfo", MODE_PRIVATE);
         officerid = sharedPreferences.getString("intofficerid", null);
         SharedPreferences sharedPreferences = getSharedPreferences("Userinfo", MODE_PRIVATE);
@@ -111,10 +111,13 @@ public class updatestatus extends Activity implements View.OnClickListener {
             @Override
             public void onClick(View v) {
                 if (search.getText().toString().length() == 13) {
-                    // Toast.makeText(getApplicationContext(), "three", Toast.LENGTH_SHORT).show();
-                    // Toast.makeText(getApplicationContext(), "34", Toast.LENGTH_SHORT).show();
-                    hidekeyboard();
-                    new updatestatus.getstatus(search.getText().toString()).execute();
+                    progress = new ProgressDialog(updatestatus.this);
+                    progress.setMessage("Fetching data from server..");
+                    progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                    progress.setIndeterminate(true);
+                    progress.setCancelable(false);
+                    progress.show();
+                     new updatestatus.getstatus("2017-VMC-"+search.getText().toString().substring(9,13)).execute();
                 }
             }
         });
@@ -128,7 +131,7 @@ public class updatestatus extends Activity implements View.OnClickListener {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 App_status = parent.getItemAtPosition(position).toString();
-                Toast.makeText(getApplicationContext(), parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getApplicationContext(), parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -240,20 +243,21 @@ public class updatestatus extends Activity implements View.OnClickListener {
 
         class UploadImage extends AsyncTask<Bitmap, Void, String> {
 
-            ProgressDialog loading;
+          //  ProgressDialog loading;
             RequestHandler rh = new RequestHandler();
 
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                loading = ProgressDialog.show(updatestatus.this, "Uploading...", null, true, true);
+               // loading = ProgressDialog.show(updatestatus.this, "Uploading...", null, true, true);
             }
 
             @Override
             protected void onPostExecute(String json) {
                 super.onPostExecute(json);
-                loading.dismiss();
-                Toast.makeText(getApplicationContext(), json.toString(), Toast.LENGTH_SHORT).show();
+              //  loading.dismiss();
+                progress.dismiss();
+               // Toast.makeText(getApplicationContext(), json.toString(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -433,6 +437,12 @@ public class updatestatus extends Activity implements View.OnClickListener {
                 }else if (App_status.equals("--Select--")){
                     showalert("Select Application Status");
                 }else {
+                    progress = new ProgressDialog(updatestatus.this);
+                    progress.setMessage("Uploading data to server..");
+                    progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                    progress.setIndeterminate(true);
+                    progress.setCancelable(false);
+                    progress.show();
                     uploadImage();
                 }
                 break;
@@ -471,7 +481,8 @@ public class updatestatus extends Activity implements View.OnClickListener {
 
         @Override
         protected void onPostExecute(JSONObject json) {
-            Toast.makeText(getApplicationContext(), json.toString(), Toast.LENGTH_SHORT).show();
+           // Toast.makeText(getApplicationContext(), json.toString(), Toast.LENGTH_SHORT).show();
+            progress.dismiss();
             try {
                 JSONArray jsonObject = json.getJSONArray("users");
                 for (int i = 0; i < jsonObject.length(); i++) {
