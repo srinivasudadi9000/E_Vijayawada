@@ -34,6 +34,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
@@ -107,6 +109,8 @@ public class updatestatus extends Activity implements View.OnClickListener {
         officerid = sharedPreferences.getString("intofficerid", null);
         SharedPreferences sharedPreferences = getSharedPreferences("Userinfo", MODE_PRIVATE);
         officername.setText(  sharedPreferences.getString("username", ""));
+        search.setText("2017-VMC-");
+        search.setSelection(search.getText().length());
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -257,7 +261,7 @@ public class updatestatus extends Activity implements View.OnClickListener {
                 super.onPostExecute(json);
               //  loading.dismiss();
                 progress.dismiss();
-               // Toast.makeText(getApplicationContext(), json.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), json.toString(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -285,20 +289,25 @@ public class updatestatus extends Activity implements View.OnClickListener {
                 HashMap<String, String> data = new HashMap<>();
 
                 // data.put(UPLOAD_KEY, uploadImage);
-                data.put("intGrivanceid", "asdf");
-                data.put("App_No", "12313");
-                data.put("Status", "dad");
-                data.put("remarks", "asdfads");
-                data.put("GLatitude", "asdf");
+                data.put("intGrivanceid", "1002");
+                data.put("App_No", "2017-VMC-1002");
+                data.put("Status", "Rejected");
+                data.put("remarks", "good");
+                data.put("GLatitude", "22.22");
                 data.put("GLangitude", "22.22");
-                data.put("intOfficerid", "22");
+                data.put("intOfficerid", "1059");
 
-                data.put("GrievancePhotoFile1", "sdfasdf");
-                data.put("GrievancePhotoPath1", uploadImage1);
-                data.put("GrievancePhotoFile2", "asdfas");
-                data.put("GrievancePhotoPath2", uploadImage2);
-                data.put("GrievancePhotoFile3", "asdfsdf");
-                data.put("GrievancePhotoPath3", uploadImage3);
+               // data.put("GrievancePhotoFile1", "sdfasdf");
+                 data.put("GrievancePhotoPath1", uploadImage1);
+                data.put("GrievancePhotoPath1", "asdfasdf");
+               // data.put("GrievancePhotoFile2", "asdfas");
+                 data.put("GrievancePhotoPath2", uploadImage2);
+                data.put("GrievancePhotoPath2", "asdfsad");
+               // data.put("GrievancePhotoFile3", "asdfsdf");
+                 data.put("GrievancePhotoPath3", uploadImage3);
+                data.put("GrievancePhotoPath3", "asdfsd");
+
+
 
                 System.out.print(data.toString());
                 String result = rh.sendPostRequest("http://208.78.220.51/VMCGMS/UpdateStatusofGreivance.aspx", data);
@@ -308,6 +317,17 @@ public class updatestatus extends Activity implements View.OnClickListener {
 
         UploadImage ui = new UploadImage();
         ui.execute(bitmap);
+    }
+
+    private void cameraIntent() {
+        Intent it = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(it, REQUEST_CAMERA);
+    }
+    private void galleryIntent() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);//
+        startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_FILE);
     }
 
     private void selectImage() {
@@ -331,19 +351,6 @@ public class updatestatus extends Activity implements View.OnClickListener {
             }
         });
         builder.show();
-    }
-
-
-    private void galleryIntent() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);//
-        startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_FILE);
-    }
-
-    private void cameraIntent() {
-        Intent it = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(it, REQUEST_CAMERA);
     }
 
     @Override
@@ -506,11 +513,25 @@ public class updatestatus extends Activity implements View.OnClickListener {
                     doorno.setText(value.getString("DoorNo"));
                     address_tv.setText(value.getString("ApplAddress"));
                     grievance_des_tv.setText(value.getString("GrievanceDesc"));
+
+                    String aaa = "http://"+value.getString("GrievancePhotoPath1");
+                    /*image_one.setMaxWidth(150);
+                    image_one.setMaxHeight(150);*/
+                   // http://208.78.220.51//VMCGMS//GrievancePhoto1//1002_a.jpg
+                    Picasso.with(updatestatus.this).load(aaa).into(image_one);
+                    Toast.makeText(getBaseContext(),value.getString("GrievancePhotoPath1"),Toast.LENGTH_SHORT).show();
+                    String aa32 ="http://"+value.getString("GrievancePhotoPath2");
+                    image_one.setMaxWidth(150);
+                    image_one.setMaxHeight(150);
+                    Picasso.with(updatestatus.this).load(aa32).into(image_one);
+                    String aa323 ="http://"+value.getString("GrievancePhotoPath3");
+                    image_one.setMaxWidth(150);
+                    image_one.setMaxHeight(150);
+                    Picasso.with(updatestatus.this).load(aa323).into(image_one);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
         }
     }
 

@@ -59,7 +59,8 @@ public class Login extends Activity implements View.OnClickListener {
         anim.start();*/
 
         input_usename.setOnClickListener(Login.this);
-
+        Animation myAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.bounce);
+        btn_login.startAnimation(myAnim);
      }
 
     @Override
@@ -73,7 +74,6 @@ public class Login extends Activity implements View.OnClickListener {
                     showalert("Password should not be empty");
 
                 } else {
-
                     progress = new ProgressDialog(this);
                     progress.setMessage("Authenticating User..");
                     progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);

@@ -7,6 +7,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:background="#ffffff"
+    android:id="@+id/linearlayout"
     tools:context="bestapphome.e_vijayawada.MainActivity">
      <ImageView
          android:src="@drawable/aplogo"
