@@ -176,7 +176,8 @@ public class updatestatus extends Activity implements View.OnClickListener {
 
         clearPreferences();
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA,
+                     Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION}, 0);
         }
 
