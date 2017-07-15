@@ -5,85 +5,38 @@
     android:background="@drawable/bluebackgroundbox">
 
     <LinearLayout
+        android:gravity="center_vertical"
+        android:background="@color/colorPrimary"
+        android:layout_marginTop="5dp"
         android:id="@+id/mll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:orientation="horizontal"
         android:weightSum="2">
-
-        <LinearLayout
-            android:id="@+id/office_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/logout"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_weight="2"
-            android:orientation="vertical"
-            android:paddingLeft="15dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Officer Name :"
-                android:textColor="#000000"
-                android:textSize="14dp" />
-
-            <TextView
-                android:id="@+id/officername"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text=""
-                android:textColor="#000000"
-                android:textSize="14dp" />
-        </LinearLayout>
-
+        <ImageView
+            android:id="@+id/back"
+            android:src="@drawable/back"
+            android:layout_width="75dp"
+            android:layout_height="25dp" />
         <TextView
-            android:id="@+id/logout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/searchbackgroundbox"
-            android:foregroundGravity="left"
-            android:gravity="center"
-            android:padding="2dp"
-            android:text="LOGOUT"
-            android:textSize="15dp"
-            android:textStyle="bold" />
-    </LinearLayout>
-    <android.support.design.widget.TextInputLayout
-        android:layout_below="@+id/mll"
-        android:id="@+id/Logo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:gravity="center">
-
-        <EditText
-            android:inputType="number"
-            android:id="@+id/search"
+            android:textColor="#ffffff"
+             android:textStyle="bold"
+             android:textSize="20dp"
+            android:text="View Details"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableRight="@drawable/search"
-            android:hint="Grievance Number (2017-VMS-1002)"
-            android:paddingLeft="5dp" />
+            android:layout_height="wrap_content" />
 
-    </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
 
     <ScrollView
+
         android:id="@+id/sc_table"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/Logo"
+        android:layout_below="@+id/mll"
         android:layout_marginTop="10dp">
 
         <LinearLayout
@@ -430,8 +383,7 @@
                 </TableRow>
 
                 <TableRow
-                    android:visibility="gone"
-                    android:id="@+id/grievance_status"
+                     android:id="@+id/grievance_status"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/border">
@@ -456,8 +408,7 @@
                         android:textStyle="normal" />
                 </TableRow>
                 <TableRow
-                    android:visibility="gone"
-                    android:id="@+id/grievance_Remark"
+                     android:id="@+id/grievance_Remark"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/border">
@@ -482,8 +433,7 @@
                         android:textStyle="normal" />
                 </TableRow>
                 <TableRow
-                    android:visibility="gone"
-                    android:id="@+id/grievance_phot"
+                     android:id="@+id/grievance_phot"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/border">
@@ -497,16 +447,15 @@
                         android:textSize="14dp" />
 
                     <ImageView
-                         android:id="@+id/grievance_photo1"
+                        android:id="@+id/grievance_photo1"
                         android:layout_weight="1.2"
                         android:background="@drawable/border"
                         android:gravity="center"
                         android:padding="8dp"
-                         />
+                        />
                 </TableRow>
                 <TableRow
-                    android:visibility="gone"
-                    android:id="@+id/grievance_file2"
+                     android:id="@+id/grievance_file2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/border">
@@ -528,8 +477,7 @@
                         />
                 </TableRow>
                 <TableRow
-                    android:visibility="gone"
-                    android:id="@+id/grievance_file3"
+                     android:id="@+id/grievance_file3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/border">
@@ -552,205 +500,6 @@
                 </TableRow>
 
             </TableLayout>
-            <LinearLayout
-                android:id="@+id/mylinear"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/mytextinput"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="10dp"
-                    android:gravity="center">
-
-                    <TextView
-                        android:id="@+id/status_app"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:text=" Grievance Status :"
-                        android:textColor="#000000"
-                        android:textSize="15dp" />
-
-                    <Spinner
-                        android:layout_marginLeft="5dp"
-                        android:id="@+id/spinner"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:hint="Enter Remarks "
-                        android:textColor="#000000" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:gravity="center">
-
-                    <EditText
-                        android:id="@+id/remarks_et"
-                        android:layout_marginLeft="2dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:hint="Enter Remarks "
-                        android:lines="3"
-                        android:textColor="#000000" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="*"
-                        android:textColor="#ff0000"
-                        android:textSize="15dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text=" Upload Photos : "
-                        android:textColor="#000000"
-                        android:textSize="15dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/photo_one"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/searchbackgroundbox"
-                        android:fontFamily="sans-serif"
-                        android:padding="5dp"
-                        android:text="Choose file"
-                        android:textColor="#000000" />
-
-
-                    <ImageView
-                        android:id="@+id/image_one"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_marginLeft="15dp"
-                        android:padding="5dp"
-                        android:text="Photo1" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/photo_two"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/searchbackgroundbox"
-                        android:fontFamily="sans-serif"
-                        android:padding="5dp"
-                        android:text="Choose file"
-                        android:textColor="#000000" />
-
-
-                    <ImageView
-                        android:id="@+id/image_two"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_marginLeft="15dp"
-                        android:padding="5dp"
-                        android:text="Photo1" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/photo_three"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/searchbackgroundbox"
-                        android:fontFamily="sans-serif"
-                        android:padding="5dp"
-                        android:text="Choose file"
-                        android:textColor="#000000" />
-
-
-                    <ImageView
-                        android:id="@+id/image_three"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginLeft="15dp"
-                        android:padding="5dp"
-                        android:text="Photo1" />
-                </LinearLayout>
-               <LinearLayout
-                   android:layout_marginTop="5dp"
-                   android:layout_weight="2"
-                   android:orientation="horizontal"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content">
-                   <Button
-                       android:layout_weight="1"
-                       android:layout_marginLeft="10dp"
-                       android:layout_marginRight="10dp"
-                       android:id="@+id/submit"
-                       android:layout_width="wrap_content"
-                       android:layout_height="45dp"
-                       android:layout_gravity="center"
-                       android:layout_marginBottom="10dp"
-                       android:background="#1E90FF"
-                       android:text="Submit"
-                       android:textColor="#ffffff" />
-
-                   <Button
-                       android:layout_weight="1"
-                        android:layout_marginLeft="10dp"
-                       android:layout_marginRight="10dp"
-                        android:id="@+id/clear"
-                       android:layout_width="wrap_content"
-                       android:layout_height="45dp"
-                       android:layout_gravity="center"
-                       android:layout_marginBottom="10dp"
-                       android:background="#1E90FF"
-                       android:text="Clear"
-                       android:textColor="#ffffff" />
-
-               </LinearLayout>
-            </LinearLayout>
 
 
         </LinearLayout>
