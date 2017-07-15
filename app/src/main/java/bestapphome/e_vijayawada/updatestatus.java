@@ -11,9 +11,12 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -30,7 +33,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +46,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -57,25 +63,39 @@ import bestapphome.e_vijayawada.json.JSONParser;
 public class updatestatus extends Activity implements View.OnClickListener {
     EditText search;
     TextView application_no, grievance_type, applicant_name, mobile_number, concern_officer, aadhar_no, depart_name, ward_no,
-            locality, doorno, address_tv, grievance_des_tv, officername;
-    TextView photo_one, photo_two, photo_three, submit,logout;
-    public ImageView image_one, image_two, image_three;
+            locality, doorno, address_tv, grievance_des_tv, officername, griev_status;
+    TextView photo_one, photo_two, photo_three, submit, logout, grievance_remarks;
+    public ImageView image_one, image_two, image_three, grievance_photo2, grievance_photo1, grievance_photo3;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     Dialog dialog;
     private Bitmap bitmap;
     SharedPreferences sharedPreferences;
-    String officerid, App_status, selectmyimages, userChoosenTask;
+    String officerid, App_status, selectmyimages, userChoosenTask, exactstatus;
     Spinner spinner;
     Bitmap scaledBitmap = null, scaledBitmap2 = null, scaledBitmap3 = null;
     private static String TAG = "PermissionDemo";
     private static final int RECORD_REQUEST_CODE = 101;
     ProgressDialog progress;
+    EditText remarks;
+    LinearLayout mylinear;
+    TableRow grievance_status, grievance_Remark, grievance_phot, grievance_file2, grievance_file3;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.updatestatus);
+        grievance_status = (TableRow) findViewById(R.id.grievance_status);
+        grievance_Remark = (TableRow) findViewById(R.id.grievance_Remark);
+        grievance_phot = (TableRow) findViewById(R.id.grievance_phot);
+        grievance_file2 = (TableRow) findViewById(R.id.grievance_file2);
+        grievance_file3 = (TableRow) findViewById(R.id.grievance_file3);
+        remarks = (EditText) findViewById(R.id.remarks_et);
+        grievance_remarks = (TextView) findViewById(R.id.grievance_remarks);
+        mylinear = (LinearLayout) findViewById(R.id.mylinear);
         search = (EditText) findViewById(R.id.search);
         spinner = (Spinner) findViewById(R.id.spinner);
+        griev_status = (TextView) findViewById(R.id.griev_status);
         officername = (TextView) findViewById(R.id.officername);
         application_no = (TextView) findViewById(R.id.application_no);
         grievance_type = (TextView) findViewById(R.id.grievance_type);
@@ -95,6 +115,9 @@ public class updatestatus extends Activity implements View.OnClickListener {
         photo_one = (TextView) findViewById(R.id.photo_one);
         photo_two = (TextView) findViewById(R.id.photo_two);
         photo_three = (TextView) findViewById(R.id.photo_three);
+        grievance_photo1 = (ImageView) findViewById(R.id.grievance_photo1);
+        grievance_photo2 = (ImageView) findViewById(R.id.grievance_photo2);
+        grievance_photo3 = (ImageView) findViewById(R.id.grievance_photo3);
         logout = (TextView) findViewById(R.id.logout);
         submit = (Button) findViewById(R.id.submit);
 
@@ -108,7 +131,7 @@ public class updatestatus extends Activity implements View.OnClickListener {
         sharedPreferences = getSharedPreferences("Userinfo", MODE_PRIVATE);
         officerid = sharedPreferences.getString("intofficerid", null);
         SharedPreferences sharedPreferences = getSharedPreferences("Userinfo", MODE_PRIVATE);
-        officername.setText(  sharedPreferences.getString("username", ""));
+        officername.setText(sharedPreferences.getString("username", ""));
         search.setText("2017-VMC-");
         search.setSelection(search.getText().length());
         search.setOnClickListener(new View.OnClickListener() {
@@ -121,7 +144,7 @@ public class updatestatus extends Activity implements View.OnClickListener {
                     progress.setIndeterminate(true);
                     progress.setCancelable(false);
                     progress.show();
-                     new updatestatus.getstatus("2017-VMC-"+search.getText().toString().substring(9,13)).execute();
+                    new updatestatus.getstatus("2017-VMC-" + search.getText().toString().substring(9, 13)).execute();
                 }
             }
         });
@@ -135,7 +158,7 @@ public class updatestatus extends Activity implements View.OnClickListener {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 App_status = parent.getItemAtPosition(position).toString();
-              //  Toast.makeText(getApplicationContext(), parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(getApplicationContext(), parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -145,9 +168,7 @@ public class updatestatus extends Activity implements View.OnClickListener {
 
         clearPreferences();
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
-        }
+
     }
 
     @Override
@@ -243,25 +264,45 @@ public class updatestatus extends Activity implements View.OnClickListener {
         return encodedImage;
     }
 
-    private void uploadImage() {
+    private void uploadImage(final String remarks) {
 
         class UploadImage extends AsyncTask<Bitmap, Void, String> {
 
-          //  ProgressDialog loading;
+            //  ProgressDialog loading;
             RequestHandler rh = new RequestHandler();
 
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-               // loading = ProgressDialog.show(updatestatus.this, "Uploading...", null, true, true);
+                // loading = ProgressDialog.show(updatestatus.this, "Uploading...", null, true, true);
             }
 
             @Override
             protected void onPostExecute(String json) {
                 super.onPostExecute(json);
-              //  loading.dismiss();
+                //  loading.dismiss();
                 progress.dismiss();
                 Toast.makeText(getApplicationContext(), json.toString(), Toast.LENGTH_SHORT).show();
+                try {
+                    JSONObject jsonObject = new JSONObject(json.toString());
+                    JSONArray jsonArray = jsonObject.getJSONArray("result");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject result = jsonArray.getJSONObject(i);
+                        if (result.getString("CreateEvent").equals("success")) {
+                            Intent ii = new Intent(updatestatus.this, updatestatus.class);
+                            startActivity(ii);
+                            finish();
+                            break;
+                        } else {
+
+                            showalert("Server Busy Please Try Again.","show");
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+
+                    showalert("Server Busy Please Try Again.","show");
+                }
             }
 
             @Override
@@ -288,25 +329,26 @@ public class updatestatus extends Activity implements View.OnClickListener {
                 String filename = selectmyimages;
                 HashMap<String, String> data = new HashMap<>();
 
-                // data.put(UPLOAD_KEY, uploadImage);
-                data.put("intGrivanceid", "1002");
-                data.put("App_No", "2017-VMC-1002");
-                data.put("Status", "Rejected");
-                data.put("remarks", "good");
+
+                SharedPreferences sharedPreferences1 = getSharedPreferences("app_info", MODE_PRIVATE);
+
+                data.put("intGrivanceid", sharedPreferences1.getString("intGrivanceid", ""));
+                data.put("App_No", sharedPreferences1.getString("App_No", ""));
+                data.put("Status", App_status);
+                data.put("remarks", remarks);
                 data.put("GLatitude", "22.22");
                 data.put("GLangitude", "22.22");
-                data.put("intOfficerid", "1059");
+                data.put("intOfficerid", officerid);
 
-               // data.put("GrievancePhotoFile1", "sdfasdf");
-                 data.put("GrievancePhotoPath1", uploadImage1);
+                // data.put("GrievancePhotoFile1", "sdfasdf");
+                data.put("GrievancePhotoPath1", uploadImage1);
                 data.put("GrievancePhotoPath1", "asdfasdf");
-               // data.put("GrievancePhotoFile2", "asdfas");
-                 data.put("GrievancePhotoPath2", uploadImage2);
+                // data.put("GrievancePhotoFile2", "asdfas");
+                data.put("GrievancePhotoPath2", uploadImage2);
                 data.put("GrievancePhotoPath2", "asdfsad");
-               // data.put("GrievancePhotoFile3", "asdfsdf");
-                 data.put("GrievancePhotoPath3", uploadImage3);
+                // data.put("GrievancePhotoFile3", "asdfsdf");
+                data.put("GrievancePhotoPath3", uploadImage3);
                 data.put("GrievancePhotoPath3", "asdfsd");
-
 
 
                 System.out.print(data.toString());
@@ -323,6 +365,7 @@ public class updatestatus extends Activity implements View.OnClickListener {
         Intent it = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(it, REQUEST_CAMERA);
     }
+
     private void galleryIntent() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -439,18 +482,20 @@ public class updatestatus extends Activity implements View.OnClickListener {
                 selectImage();
                 break;
             case R.id.submit:
-                if (selectmyimages.equals("novalue")){
-                    showalert("Please Select Photo");
-                }else if (App_status.equals("--Select--")){
-                    showalert("Select Application Status");
-                }else {
+                if (selectmyimages.equals("novalue")) {
+                    showalert("Please Select Photo","no");
+                } else if (App_status.equals("--Select--")) {
+                    showalert("Select Application Status","no");
+                }/*else if (exactstatus.equals("Redressed") || exactstatus.equals("Rejected")){
+                    showalert("Grievance Status Already Updated Thankyou !!! ");
+                }*/ else {
                     progress = new ProgressDialog(updatestatus.this);
                     progress.setMessage("Uploading data to server..");
                     progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                     progress.setIndeterminate(true);
                     progress.setCancelable(false);
                     progress.show();
-                    uploadImage();
+                    uploadImage(remarks.getText().toString());
                 }
                 break;
             case R.id.logout:
@@ -460,7 +505,7 @@ public class updatestatus extends Activity implements View.OnClickListener {
                 ee.putString("name", "");
                 ee.commit();
 
-                Intent i = new Intent(updatestatus.this,Login.class);
+                Intent i = new Intent(updatestatus.this, Login.class);
                 startActivity(i);
                 finish();
         }
@@ -494,7 +539,7 @@ public class updatestatus extends Activity implements View.OnClickListener {
 
         @Override
         protected void onPostExecute(JSONObject json) {
-           // Toast.makeText(getApplicationContext(), json.toString(), Toast.LENGTH_SHORT).show();
+            // Toast.makeText(getApplicationContext(), json.toString(), Toast.LENGTH_SHORT).show();
             progress.dismiss();
             try {
                 JSONArray jsonObject = json.getJSONArray("users");
@@ -513,24 +558,59 @@ public class updatestatus extends Activity implements View.OnClickListener {
                     doorno.setText(value.getString("DoorNo"));
                     address_tv.setText(value.getString("ApplAddress"));
                     grievance_des_tv.setText(value.getString("GrievanceDesc"));
+                    Picasso.with(updatestatus.this)
+                            .load("http://" + value.getString("GrievancePhotoPath1"))
+                            //this is also optional if some error has occurred in downloading the image this image would be displayed
+                            .into(image_one);
+                    Picasso.with(updatestatus.this)
+                            .load("http://" + value.getString("GrievancePhotoPath2"))
+                            //this is also optional if some error has occurred in downloading the image this image would be displayed
+                            .into(image_two);
+                    Picasso.with(updatestatus.this)
+                            .load("http://" + value.getString("GrievancePhotoPath3"))
+                            //this is also optional if some error has occurred in downloading the image this image would be displayed
+                            .into(image_three);
+                    exactstatus = value.getString("Status");
 
-                    String aaa = "http://"+value.getString("GrievancePhotoPath1");
-                    /*image_one.setMaxWidth(150);
-                    image_one.setMaxHeight(150);*/
-                   // http://208.78.220.51//VMCGMS//GrievancePhoto1//1002_a.jpg
-                    Picasso.with(updatestatus.this).load(aaa).into(image_one);
-                    Toast.makeText(getBaseContext(),value.getString("GrievancePhotoPath1"),Toast.LENGTH_SHORT).show();
-                    String aa32 ="http://"+value.getString("GrievancePhotoPath2");
-                    image_one.setMaxWidth(150);
-                    image_one.setMaxHeight(150);
-                    Picasso.with(updatestatus.this).load(aa32).into(image_one);
-                    String aa323 ="http://"+value.getString("GrievancePhotoPath3");
-                    image_one.setMaxWidth(150);
-                    image_one.setMaxHeight(150);
-                    Picasso.with(updatestatus.this).load(aa323).into(image_one);
+                    SharedPreferences sharedPreferences = getSharedPreferences("app_info", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("intGrivanceid", value.getString("intGrivanceid"));
+                    editor.putString("App_No", value.getString("App_No"));
+                    editor.commit();
+
+                    if (exactstatus.equals("Rejected") || exactstatus.equals("Redressed")) {
+                        mylinear.setVisibility(View.GONE);
+                        grievance_status.setVisibility(View.VISIBLE);
+                        grievance_Remark.setVisibility(View.VISIBLE);
+                        grievance_phot.setVisibility(View.VISIBLE);
+                        grievance_file2.setVisibility(View.VISIBLE);
+                        grievance_file3.setVisibility(View.VISIBLE);
+                        griev_status.setText(":" + value.getString("Status"));
+
+                        grievance_remarks.setText(value.getString("remarks"));
+                        Picasso.with(updatestatus.this)
+                                .load("http://" + value.getString("GrievancePhotoPath1"))
+                                //this is also optional if some error has occurred in downloading the image this image would be displayed
+                                .into(grievance_photo1);
+                        Picasso.with(updatestatus.this)
+                                .load("http://" + value.getString("GrievancePhotoPath2"))
+                                //this is also optional if some error has occurred in downloading the image this image would be displayed
+                                .into(grievance_photo2);
+                        Picasso.with(updatestatus.this)
+                                .load("http://" + value.getString("GrievancePhotoPath3"))
+                                //this is also optional if some error has occurred in downloading the image this image would be displayed
+                                .into(grievance_photo3);
+                    } else {
+
+                    }
+
+
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
+                //    Toast.makeText(getBaseContext(),"exception",Toast.LENGTH_SHORT).show();
+
+                showalert("Record Not Found !!! For This Grievance Id " + search.getText().toString(),"show");
             }
         }
     }
@@ -545,15 +625,21 @@ public class updatestatus extends Activity implements View.OnClickListener {
             e.printStackTrace();
         }
     }
-    void showalert(String alert_msg){
+
+    void showalert(String alert_msg, final String show) {
         android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(updatestatus.this);
         alertDialogBuilder.setTitle("E_Vijayawada");
-       // alertDialogBuilder.setIcon(R.drawable.aplogo);
+        // alertDialogBuilder.setIcon(R.drawable.aplogo);
         // set dialog message
         alertDialogBuilder.setMessage(alert_msg).setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
+                        if (show.equals("show")){
+                            Intent refresh = new Intent(updatestatus.this, updatestatus.class);
+                            startActivity(refresh);
+                            finish();
+                        }
                     }
                 });
         // create alert dialog
@@ -561,9 +647,10 @@ public class updatestatus extends Activity implements View.OnClickListener {
         // show it
         alertDialog.show();
     }
-  void hidekeyboard(){
-      InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-      inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-  }
+
+    void hidekeyboard() {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+    }
 
 }
