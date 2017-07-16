@@ -30,7 +30,8 @@ public class MainActivity extends Activity {
                   startActivity(i);
                   //Do something after 100ms
               }else {
-                  Intent ee = new Intent(getApplicationContext(),updatestatus.class);
+                  Intent ee = new Intent(getApplicationContext(),SelectList.class);
+                 // Intent ee = new Intent(getApplicationContext(),home.class);
                   startActivity(ee);
               }
             }
@@ -45,7 +46,7 @@ public class MainActivity extends Activity {
                     startActivity(i);
                     //Do something after 100ms
                 }else {
-                    Intent ee = new Intent(getApplicationContext(),updatestatus.class);
+                    Intent ee = new Intent(getApplicationContext(),SelectList.class);
                     startActivity(ee);
                 }
             }

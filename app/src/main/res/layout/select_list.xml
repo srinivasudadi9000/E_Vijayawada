@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/select_rl"
+    android:background="#ffffff"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+     >
+     <ImageView
+        android:layout_marginTop="50dp"
+        android:id="@+id/myimage"
+        android:src="@drawable/aplogo"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/mytext1"
+        android:layout_below="@+id/myimage"
+        android:layout_marginTop="10dp"
+        android:text=" 103 Grievance Monitoring System"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="#00004c"
+        android:textSize="18dp"
+        android:src="@drawable/aplogo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:visibility="gone"
+        android:layout_below="@+id/mytext1"
+        android:layout_marginTop="2dp"
+        android:text="   Vijayawada Municipal Corporation  "
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="#00004c"
+        android:textSize="22dp"
+        android:src="@drawable/aplogo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:id="@+id/btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Grievance Dashboard"
+        android:background="@color/colorPrimary"
+        android:layout_marginTop="20dp"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:layout_centerVertical="true"
+        android:layout_weight="1"/>
+    <Button
+        android:layout_below="@+id/btn_submit"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:id="@+id/knowstatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=" Grievance status"
+        android:background="@color/colorPrimary"
+        android:layout_marginTop="20dp"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:layout_centerVertical="true"/>
+
+</RelativeLayout>
