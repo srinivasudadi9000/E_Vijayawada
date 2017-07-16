@@ -337,12 +337,14 @@ public class updatestatus extends Activity implements View.OnClickListener {
                 // data.put(UPLOAD_KEY, uploadImage);
                 data.put("intGrivanceid", sharedPreferences1.getString("intGrivanceid", ""));
                 data.put("App_No", sharedPreferences1.getString("App_No", ""));
-                data.put("Status", App_status);
-               // data.put("Status", "Pending");
+                 data.put("Status", App_status);
+               //  data.put("Status", "Pending");
                 data.put("remarks", remarks);
+               // data.put("remarks", "REMARKS");
                 data.put("GLatitude", "22.22");
                 data.put("GLangitude", "22.22");
-                data.put("intOfficerid", officerid);
+                 data.put("intOfficerid", officerid);
+               // data.put("intOfficerid", "1050");
 
                 data.put("GrievancePhotoFile1", "sdfasdf");
                 data.put("GrievancePhotoPath1", uploadImage1);
@@ -607,8 +609,9 @@ public class updatestatus extends Activity implements View.OnClickListener {
                                 //this is also optional if some error has occurred in downloading the image this image would be displayed
                                 .into(grievance_photo3);
                         showalert("Grievance Status Already Updated Thankyou !!","notsho");
+                       // uploadImage(remarks.getText().toString());
                     } else {
-
+                        mylinear.setVisibility(View.VISIBLE);
                     }
 
 

@@ -553,6 +553,7 @@
 
             </TableLayout>
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/mylinear"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
