@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
      >
      <ImageView
+         android:foregroundGravity="center"
         android:layout_marginTop="50dp"
         android:id="@+id/myimage"
         android:src="@drawable/aplogo"
@@ -15,8 +16,7 @@
         android:layout_centerHorizontal="true"/>
 
     <TextView
-        android:visibility="gone"
-        android:id="@+id/mytext1"
+         android:id="@+id/mytext1"
         android:layout_below="@+id/myimage"
         android:layout_marginTop="10dp"
         android:text=" 103 Grievance Monitoring System"
@@ -29,8 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <TextView
-        android:visibility="gone"
-        android:layout_below="@+id/mytext1"
+         android:layout_below="@+id/mytext1"
         android:layout_marginTop="2dp"
         android:text="   Vijayawada Municipal Corporation  "
         android:layout_gravity="center"
@@ -49,7 +48,7 @@
         android:layout_height="wrap_content"
         android:text="Grievance Dashboard"
         android:background="@color/colorPrimary"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:textColor="@android:color/white"
         android:gravity="center"
         android:layout_centerVertical="true"
