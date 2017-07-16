@@ -37,8 +37,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".updatestatus" />
         <activity android:name=".ViewDetails" />
-        <activity android:name=".Dashboard"></activity>
-        <activity android:name=".SelectList"></activity>
+        <activity android:name=".Dashboard" />
+        <activity android:name=".SelectList" />
+        <activity android:name=".DashboardView"></activity>
     </application>
 
 </manifest>

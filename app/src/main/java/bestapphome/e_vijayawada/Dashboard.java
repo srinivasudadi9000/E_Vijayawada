@@ -12,7 +12,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,17 +30,21 @@ import java.util.ArrayList;
 
 import bestapphome.e_vijayawada.json.JSONParser;
 
-public class Dashboard extends Activity {
+public class Dashboard extends Activity implements View.OnClickListener {
     ProgressBar progress1, progress2, progress3, progress4, progress5;
     TextView PendingBefore, PendingAfter, RedressedBefore, RedressedAfter, Rejected;
     Handler progressHandler = new Handler();
     int i = 0;
     ProgressDialog progress;
+    ImageView back;
+    TextView logout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard);
-
+        logout = (TextView)findViewById(R.id.dashbord_logout);
+        back = (ImageView)findViewById(R.id.back);
         progress1 = (ProgressBar) findViewById(R.id.progress1);
         progress2 = (ProgressBar) findViewById(R.id.progress2);
         progress3 = (ProgressBar) findViewById(R.id.progress3);
@@ -49,7 +55,13 @@ public class Dashboard extends Activity {
         RedressedBefore = (TextView) findViewById(R.id.RedressedBefore);
         RedressedAfter = (TextView) findViewById(R.id.RedressedAfter);
         Rejected = (TextView) findViewById(R.id.Rejected);
-
+        progress1.setOnClickListener(this);
+        progress2.setOnClickListener(this);
+        progress3.setOnClickListener(this);
+        progress4.setOnClickListener(this);
+        progress5.setOnClickListener(this);
+        back.setOnClickListener(this);
+        logout.setOnClickListener(this);
       /*  progress = new ProgressDialog(Dashboard.this);
         progress.setMessage("Fetching data from server..");
         progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -80,7 +92,7 @@ public class Dashboard extends Activity {
                         Thread.sleep(50);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
-                        Toast.makeText(getBaseContext(), "kasldfkasld", Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(getBaseContext(), "kasldfkasld", Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -101,11 +113,45 @@ public class Dashboard extends Activity {
                 RedressedAfter.startAnimation(slideUp2);
                 Rejected.startAnimation(slideUp2);
                 //Do something after 100ms
-                Toast.makeText(getBaseContext(),"alskdflasd",Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getBaseContext(),"alskdflasd",Toast.LENGTH_SHORT).show();
             }
         }, 3000);
 
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.progress1:
+                Intent i = new Intent(Dashboard.this,DashboardView.class);
+                startActivity(i);
+                break;
+            case R.id.progress2:
+                Intent i2 = new Intent(Dashboard.this,DashboardView.class);
+                startActivity(i2);
+                break;
+            case R.id.progress3:
+                Intent i3 = new Intent(Dashboard.this,DashboardView.class);
+                startActivity(i3);
+                break;
+            case R.id.progress4:
+                Intent i4 = new Intent(Dashboard.this,DashboardView.class);
+                startActivity(i4);
+                break;
+            case R.id.progress5:
+                Intent i5 = new Intent(Dashboard.this,DashboardView.class);
+                startActivity(i5);
+                break;
+            case R.id.back:
+                finish();
+                break;
+            case R.id.dashbord_logout:
+               Intent login = new Intent(Dashboard.this,Login.class);
+                startActivity(login);
+                finish();
+                break;
+        }
     }
 
     private class getstatus extends AsyncTask<String, String, JSONObject> {
