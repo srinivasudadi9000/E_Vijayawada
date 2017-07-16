@@ -35,6 +35,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -66,7 +67,7 @@ public class updatestatus extends Activity implements View.OnClickListener {
     TextView application_no, grievance_type, applicant_name, mobile_number, concern_officer, aadhar_no, depart_name, ward_no,
             locality, doorno, address_tv, grievance_des_tv, officername, griev_status;
     TextView photo_one, photo_two, photo_three, submit, logout, grievance_remarks;
-    public ImageView image_one, image_two, image_three, grievance_photo2, grievance_photo1, grievance_photo3;
+    public ImageView image_one, image_two, image_three, grievance_photo2, grievance_photo1, grievance_photo3,back;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     Dialog dialog;
     private Bitmap bitmap;
@@ -82,7 +83,7 @@ public class updatestatus extends Activity implements View.OnClickListener {
     TableRow grievance_status, grievance_Remark, grievance_phot, grievance_file2, grievance_file3;
     Button clear;
     GPSTracker gps;
-
+    RelativeLayout dashbord_logout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,20 +116,22 @@ public class updatestatus extends Activity implements View.OnClickListener {
         image_one = (ImageView) findViewById(R.id.image_one);
         image_two = (ImageView) findViewById(R.id.image_two);
         image_three = (ImageView) findViewById(R.id.image_three);
+        back = (ImageView) findViewById(R.id.back);
+
         photo_one = (TextView) findViewById(R.id.photo_one);
         photo_two = (TextView) findViewById(R.id.photo_two);
         photo_three = (TextView) findViewById(R.id.photo_three);
         grievance_photo1 = (ImageView) findViewById(R.id.grievance_photo1);
         grievance_photo2 = (ImageView) findViewById(R.id.grievance_photo2);
         grievance_photo3 = (ImageView) findViewById(R.id.grievance_photo3);
-        logout = (TextView) findViewById(R.id.logout);
+        dashbord_logout = (RelativeLayout) findViewById(R.id.dashbord_logout);
         submit = (Button) findViewById(R.id.submit);
-
+        back.setOnClickListener(updatestatus.this);
         photo_one.setOnClickListener(updatestatus.this);
         photo_two.setOnClickListener(updatestatus.this);
         photo_three.setOnClickListener(updatestatus.this);
         submit.setOnClickListener(updatestatus.this);
-        logout.setOnClickListener(updatestatus.this);
+        dashbord_logout.setOnClickListener(updatestatus.this);
         selectmyimages = "novalue";
         //hidekeyboard();
         sharedPreferences = getSharedPreferences("Userinfo", MODE_PRIVATE);
@@ -514,8 +517,7 @@ public class updatestatus extends Activity implements View.OnClickListener {
                     uploadImage(remarks.getText().toString());
                 }
                 break;
-            case R.id.logout:
-
+            case R.id.dashbord_logout:
                 SharedPreferences ss = getSharedPreferences("validuser", MODE_PRIVATE);
                 SharedPreferences.Editor ee = ss.edit();
                 ee.putString("name", "");
@@ -524,6 +526,10 @@ public class updatestatus extends Activity implements View.OnClickListener {
                 Intent i = new Intent(updatestatus.this, Login.class);
                 startActivity(i);
                 finish();
+                break;
+            case R.id.back:
+                finish();
+                break;
         }
 
     }

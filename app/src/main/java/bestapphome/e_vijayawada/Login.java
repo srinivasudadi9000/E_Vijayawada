@@ -135,7 +135,8 @@ public class Login extends Activity implements View.OnClickListener {
                     editor.putString("userlevel", value.getString("userlevel"));
                     editor.putString("intofficerid", String.valueOf(value.getInt("intOfficerid")));
                     editor.commit();
-                    Intent ii = new Intent(getApplicationContext(), updatestatus.class);
+                   // Intent ii = new Intent(getApplicationContext(), updatestatus.class);
+                    Intent ii = new Intent(getApplicationContext(), SelectList.class);
                     startActivity(ii);
                     finish();
                     SharedPreferences ss = getSharedPreferences("validuser", MODE_PRIVATE);
