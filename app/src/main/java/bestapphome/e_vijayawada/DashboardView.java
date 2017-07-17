@@ -1,5 +1,6 @@
 package bestapphome.e_vijayawada;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -28,15 +30,16 @@ import java.util.ArrayList;
 
 import bestapphome.e_vijayawada.json.JSONParser;
 
-public class DashboardView extends AppCompatActivity implements View.OnClickListener {
+public class DashboardView extends Activity implements View.OnClickListener {
     RecyclerView dashboardDril_list;
     RelativeLayout logout;
     ArrayList<Drilldown> drilldowns;
-
+    ImageView back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard_view);
+        back = (ImageView)findViewById(R.id.back);
         dashboardDril_list = (RecyclerView)findViewById(R.id.dashboardDril_list);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         dashboardDril_list.setLayoutManager(layoutManager);
@@ -47,6 +50,12 @@ public class DashboardView extends AppCompatActivity implements View.OnClickList
         SharedPreferences sharedPreferences = getSharedPreferences("Userinfo", MODE_PRIVATE);
         new DashboardView.getstatus(sharedPreferences.getString("intofficerid", null),getIntent().getStringExtra("stage").toString()).execute();
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override
