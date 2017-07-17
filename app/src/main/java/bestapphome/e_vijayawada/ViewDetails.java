@@ -74,8 +74,8 @@ public class ViewDetails extends Activity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(ViewDetails.this,updatestatus.class);
-                startActivity(i);
+              /*  Intent i = new Intent(ViewDetails.this,updatestatus.class);
+                startActivity(i);*/
                 finish();
             }
         });

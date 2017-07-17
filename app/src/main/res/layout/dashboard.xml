@@ -80,12 +80,12 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
-                            android:text="PendingBefore"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                            android:text="Pending Before Due Date"
+                             android:textStyle="bold" />
 
                         <RelativeLayout
                             android:layout_width="wrap_content"
@@ -129,12 +129,12 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
-                            android:text="PendingAfter"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                            android:text="Pending After Due Date "
+                             android:textStyle="bold" />
 
                         <RelativeLayout
                             android:layout_width="wrap_content"
@@ -159,7 +159,7 @@
                                 android:background="@android:color/transparent"
                                 android:gravity="center"
                                 android:text="85%"
-                                android:textColor="@color/colorPrimary"
+                                android:textColor="#ff0000"
                                 android:textSize="30sp"
                                 android:textStyle="bold" />
                         </RelativeLayout>
@@ -182,12 +182,12 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
-                            android:text="RedressedBefore"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                            android:text="Redressed Before Due Date"
+                             android:textStyle="bold" />
 
                         <RelativeLayout
                             android:layout_width="wrap_content"
@@ -231,9 +231,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
-                            android:text="RedressedAfter"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                            android:text="Redressed After Due Date"
+                             android:textStyle="bold" />
 
                         <RelativeLayout
                             android:layout_width="wrap_content"
@@ -258,7 +257,7 @@
                                 android:background="@android:color/transparent"
                                 android:gravity="center"
                                 android:text="85%"
-                                android:textColor="@color/colorPrimary"
+                                android:textColor="#ff0000"
                                 android:textSize="30sp"
                                 android:textStyle="bold" />
                         </RelativeLayout>
@@ -311,7 +310,7 @@
                                 android:background="@android:color/transparent"
                                 android:gravity="center"
                                 android:text="85%"
-                                android:textColor="@color/colorPrimary"
+                                android:textColor="#ff0000"
                                 android:textSize="30sp"
                                 android:textStyle="bold" />
                         </RelativeLayout>

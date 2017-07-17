@@ -138,8 +138,21 @@ public class updatestatus extends Activity implements View.OnClickListener {
         officerid = sharedPreferences.getString("intofficerid", null);
         SharedPreferences sharedPreferences = getSharedPreferences("Userinfo", MODE_PRIVATE);
         officername.setText(sharedPreferences.getString("username", ""));
-        search.setText("2017-VMC-");
-        search.setSelection(search.getText().length());
+
+        if (getIntent().getStringExtra("app_no").equals("button")){
+            search.setText("2017-VMC-");
+            search.setSelection(search.getText().length());
+        }else {
+            search.setVisibility(View.GONE);
+            progress = new ProgressDialog(updatestatus.this);
+            progress.setMessage("Fetching data from server..");
+            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progress.setIndeterminate(true);
+            progress.setCancelable(false);
+            progress.show();
+             search.setText(getIntent().getStringExtra("app_no"));
+             new updatestatus.getstatus("2017-VMC-" + search.getText().toString().substring(9, 13)).execute();
+        }
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -528,8 +541,15 @@ public class updatestatus extends Activity implements View.OnClickListener {
                 finish();
                 break;
             case R.id.back:
-                finish();
-                break;
+                if (getIntent().getStringExtra("app_no").equals("button")){
+                    Intent back = new Intent(updatestatus.this,SelectList.class);
+                    startActivity(back);
+                    finish();
+                    break;
+                }else {
+                    finish();
+                }
+
         }
 
     }
@@ -655,7 +675,7 @@ public class updatestatus extends Activity implements View.OnClickListener {
     }
 
     void showalert(String alert_msg, final String show) {
-        android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(updatestatus.this);
+        final android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(updatestatus.this);
         alertDialogBuilder.setTitle("E_Vijayawada");
         // alertDialogBuilder.setIcon(R.drawable.aplogo);
         // set dialog message

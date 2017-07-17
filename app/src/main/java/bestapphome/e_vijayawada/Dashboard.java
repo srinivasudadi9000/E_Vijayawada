@@ -62,7 +62,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         progress5.setOnClickListener(this);
         back.setOnClickListener(this);
         logout.setOnClickListener(this);
-      /*  progress = new ProgressDialog(Dashboard.this);
+       /*  progress = new ProgressDialog(Dashboard.this);
         progress.setMessage("Fetching data from server..");
         progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progress.setIndeterminate(true);
@@ -122,28 +122,61 @@ public class Dashboard extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+
         switch (v.getId()){
             case R.id.progress1:
-                Intent i = new Intent(Dashboard.this,DashboardView.class);
-                startActivity(i);
+                if (PendingBefore.getText().toString().equals("0")){
+                    showalert("No Records for Pending Before Due Date","lk");
+                }else {
+                    Intent i = new Intent(Dashboard.this, DashboardView.class);
+                    i.putExtra("stage", "2");
+                    startActivity(i);
+                }
                 break;
             case R.id.progress2:
-                Intent i2 = new Intent(Dashboard.this,DashboardView.class);
-                startActivity(i2);
+                if (PendingAfter.getText().toString().equals("0")){
+                    showalert("No Records for Pending After Due Date","lk");
+
+                }else {
+                    Intent i2 = new Intent(Dashboard.this,DashboardView.class);
+                    i2.putExtra("stage","3");
+                    startActivity(i2);
+                }
+
                 break;
             case R.id.progress3:
-                Intent i3 = new Intent(Dashboard.this,DashboardView.class);
-                startActivity(i3);
+                if (RedressedBefore.getText().toString().equals("0")){
+                    showalert("No Records for Redressed Before Due Date","lk");
+
+                }else {
+                    Intent i3 = new Intent(Dashboard.this,DashboardView.class);
+                    i3.putExtra("stage","4");
+                    startActivity(i3);
+                }
                 break;
             case R.id.progress4:
-                Intent i4 = new Intent(Dashboard.this,DashboardView.class);
-                startActivity(i4);
+                if (RedressedAfter.getText().toString().equals("0")){
+                    showalert("No Records for Redressed After Due Date","lk");
+
+                }else {
+                    Intent i4 = new Intent(Dashboard.this,DashboardView.class);
+                    i4.putExtra("stage","5");
+                    startActivity(i4);
+                }
                 break;
             case R.id.progress5:
-                Intent i5 = new Intent(Dashboard.this,DashboardView.class);
-                startActivity(i5);
+                if (Rejected.getText().toString().equals("0")){
+                    showalert("No Records for Rejected","lk");
+
+                }else {
+                    Intent i5 = new Intent(Dashboard.this,DashboardView.class);
+                    i5.putExtra("stage","6");
+                    startActivity(i5);
+                }
                 break;
             case R.id.back:
+                Intent selectlist = new Intent(Dashboard.this,SelectList.class);
+                startActivity(selectlist);
                 finish();
                 break;
             case R.id.dashbord_logout:
@@ -187,12 +220,11 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 for (int i = 0; i < jsonObject.length(); i++) {
                     JSONObject value = jsonObject.getJSONObject(i);
                     //    Toast.makeText(getApplicationContext(), value.getString("intUserid").toString(), Toast.LENGTH_SHORT).show();
-                     PendingBefore.setText(value.getString("PendingBefor")+" %");
-                    PendingAfter.setText(value.getString("PendingAfter")+" %");
-                    RedressedBefore.setText(value.getString("RedressedBefor")+" %");
-                    RedressedAfter.setText(value.getString("RedressedAfter")+" %");
-                    Rejected.setText(value.getString("Rejected")+" %");
-
+                     PendingBefore.setText(value.getString("PendingBefor"));
+                    PendingAfter.setText(value.getString("PendingAfter"));
+                    RedressedBefore.setText(value.getString("RedressedBefor"));
+                    RedressedAfter.setText(value.getString("RedressedAfter"));
+                    Rejected.setText(value.getString("Rejected"));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
