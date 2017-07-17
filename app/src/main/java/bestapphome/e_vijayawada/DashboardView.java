@@ -136,7 +136,8 @@ public class DashboardView extends Activity implements View.OnClickListener {
                     JSONArray jsonObject = json.getJSONArray("result");
                     for (int i = 0; i < jsonObject.length(); i++) {
                         JSONObject value = jsonObject.getJSONObject(i);
-                        //    Toast.makeText(getApplicationContext(), value.getString("intUserid").toString(), Toast.LENGTH_SHORT).show();
+                        String xx = String.valueOf(jsonObject.length());
+                            Toast.makeText(getApplicationContext(), xx.toString(), Toast.LENGTH_SHORT).show();
 
                         drilldowns.add(new Drilldown(value.getString("App_No"),value.getString("ApplicantName"),
                                 value.getString("intGrivanceid")));
@@ -147,7 +148,6 @@ public class DashboardView extends Activity implements View.OnClickListener {
                 dashboardDril_list.setAdapter(adapter);
             } catch (JSONException e) {
                 e.printStackTrace();
-
                 showalert("Server Busy At This Moment !!","hai");
             }
         }

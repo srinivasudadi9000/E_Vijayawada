@@ -67,6 +67,7 @@ public class home extends Activity {
         String xx = String.valueOf(gps.isGPSEnabled);
         String net = String.valueOf(gps.isNetworkEnabled);
 
+
         Toast.makeText(getBaseContext(),latitude+" "+longitude + " "+xx +"  "+net,Toast.LENGTH_SHORT).show();
         if (!gps.isGPSEnabled && !gps.isNetworkEnabled) {
             Log.d("networkd","false");

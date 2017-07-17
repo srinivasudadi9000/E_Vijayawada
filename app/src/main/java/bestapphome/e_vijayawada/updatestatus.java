@@ -139,7 +139,8 @@ public class updatestatus extends Activity implements View.OnClickListener {
         SharedPreferences sharedPreferences = getSharedPreferences("Userinfo", MODE_PRIVATE);
         officername.setText(sharedPreferences.getString("username", ""));
 
-        if (getIntent().getStringExtra("app_no").equals("button")){
+        SharedPreferences  editor = getSharedPreferences("Back", MODE_PRIVATE);
+        if (editor.getString("button", "").equals("button")){
             search.setText("2017-VMC-");
             search.setSelection(search.getText().length());
         }else {
@@ -174,6 +175,11 @@ public class updatestatus extends Activity implements View.OnClickListener {
         if (!gps.isGPSEnabled && !gps.isNetworkEnabled) {
             Log.d("networkd", "false");
             showSettingsAlert();
+        }else {
+            String latitude = String.valueOf(gps.getLatitude());
+            String longitude = String.valueOf(gps.getLongitude());
+
+           // Toast.makeText(getBaseContext(),latitude+" "+longitude  ,Toast.LENGTH_SHORT).show();
         }
 
         clear.setOnClickListener(new View.OnClickListener() {
@@ -358,6 +364,7 @@ public class updatestatus extends Activity implements View.OnClickListener {
                 String latitude = String.valueOf(gps.getLatitude());
                 String longitude = String.valueOf(gps.getLongitude());
 
+               // Toast.makeText(getBaseContext(),latitude+" "+longitude  ,Toast.LENGTH_SHORT).show();
 
                 SharedPreferences sharedPreferences1 = getSharedPreferences("app_info", MODE_PRIVATE);
                 HashMap<String, String> data = new HashMap<>();
@@ -541,7 +548,11 @@ public class updatestatus extends Activity implements View.OnClickListener {
                 finish();
                 break;
             case R.id.back:
-                if (getIntent().getStringExtra("app_no").equals("button")){
+                SharedPreferences  editor = getSharedPreferences("Back", MODE_PRIVATE);
+                if (editor.getString("button", "").equals("button")){
+                    SharedPreferences.Editor ed = getSharedPreferences("Back", MODE_PRIVATE).edit();
+                    ed.putString("button", "dashboard");
+                    ed.commit();
                     Intent back = new Intent(updatestatus.this,SelectList.class);
                     startActivity(back);
                     finish();
