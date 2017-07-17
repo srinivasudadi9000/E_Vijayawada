@@ -81,7 +81,7 @@ public class DashboardView extends Activity implements View.OnClickListener {
             View child = rv.findChildViewUnder(e.getX(), e.getY());
             if(child != null && gestureDetector.onTouchEvent(e)) {
                 int position = rv.getChildAdapterPosition(child);
-                Toast.makeText(getBaseContext(),drilldowns.get(position).getApplicationno(),Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getBaseContext(),drilldowns.get(position).getApplicationno(),Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(DashboardView.this,updatestatus.class);
                 i.putExtra("class","dashboardview");
                 i.putExtra("app_no",drilldowns.get(position).getApplicationno().toString());
@@ -137,7 +137,7 @@ public class DashboardView extends Activity implements View.OnClickListener {
                     for (int i = 0; i < jsonObject.length(); i++) {
                         JSONObject value = jsonObject.getJSONObject(i);
                         String xx = String.valueOf(jsonObject.length());
-                            Toast.makeText(getApplicationContext(), xx.toString(), Toast.LENGTH_SHORT).show();
+                          //  Toast.makeText(getApplicationContext(), xx.toString(), Toast.LENGTH_SHORT).show();
 
                         drilldowns.add(new Drilldown(value.getString("App_No"),value.getString("ApplicantName"),
                                 value.getString("intGrivanceid")));

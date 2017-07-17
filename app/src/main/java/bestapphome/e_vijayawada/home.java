@@ -45,7 +45,7 @@ public class home extends Activity {
                 Animation myAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.bounce);
                 select_option.startAnimation(myAnim);
 
-                Toast.makeText(getBaseContext(), adapter.getItem(position).toString(), Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getBaseContext(), adapter.getItem(position).toString(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -68,7 +68,7 @@ public class home extends Activity {
         String net = String.valueOf(gps.isNetworkEnabled);
 
 
-        Toast.makeText(getBaseContext(),latitude+" "+longitude + " "+xx +"  "+net,Toast.LENGTH_SHORT).show();
+       // Toast.makeText(getBaseContext(),latitude+" "+longitude + " "+xx +"  "+net,Toast.LENGTH_SHORT).show();
         if (!gps.isGPSEnabled && !gps.isNetworkEnabled) {
             Log.d("networkd","false");
              showSettingsAlert();

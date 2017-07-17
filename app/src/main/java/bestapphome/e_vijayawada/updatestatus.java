@@ -657,7 +657,10 @@ public class updatestatus extends Activity implements View.OnClickListener {
                                 .resize(120, 120)
                                 //this is also optional if some error has occurred in downloading the image this image would be displayed
                                 .into(grievance_photo3);
-                        showalert("Grievance Status Already Updated Thankyou !!", "notsho");
+                        SharedPreferences ed = getSharedPreferences("Back", MODE_PRIVATE);
+                        if (ed.getString("button", "").equals("button")){
+                            showalert("Grievance Status Already Updated Thankyou !!", "notsho");
+                        }
                         // uploadImage(remarks.getText().toString());
                     } else {
                         mylinear.setVisibility(View.VISIBLE);
