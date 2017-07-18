@@ -177,7 +177,7 @@ public class Login extends Activity implements View.OnClickListener {
 
     void showalert(String alert_msg) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Login.this);
-        alertDialogBuilder.setTitle("E_Vijayawada");
+        alertDialogBuilder.setTitle("103 VMC");
         ///  alertDialogBuilder.setIcon(R.drawable.aplogo);
         // set dialog message
         alertDialogBuilder.setMessage(alert_msg).setCancelable(false)

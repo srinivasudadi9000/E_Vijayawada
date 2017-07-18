@@ -178,7 +178,7 @@ public class ViewDetails extends Activity {
     }
     void showalert(String alert_msg, final String show) {
         final android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(ViewDetails.this);
-        alertDialogBuilder.setTitle("E_Vijayawada");
+        alertDialogBuilder.setTitle("103 VMC");
         // alertDialogBuilder.setIcon(R.drawable.aplogo);
         // set dialog message
         alertDialogBuilder.setMessage(alert_msg).setCancelable(false)

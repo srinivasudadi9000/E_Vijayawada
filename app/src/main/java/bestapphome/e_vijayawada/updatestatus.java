@@ -710,7 +710,7 @@ public class updatestatus extends Activity implements View.OnClickListener {
 
     void showalert(String alert_msg, final String show) {
         final android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(updatestatus.this);
-        alertDialogBuilder.setTitle("E_Vijayawada");
+        alertDialogBuilder.setTitle("103 VMC");
         // alertDialogBuilder.setIcon(R.drawable.aplogo);
         // set dialog message
         alertDialogBuilder.setMessage(alert_msg).setCancelable(false)
