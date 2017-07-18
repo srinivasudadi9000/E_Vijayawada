@@ -2,9 +2,12 @@ package bestapphome.e_vijayawada;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -48,7 +51,13 @@ public class DashboardView extends Activity implements View.OnClickListener {
 
         dashboardDril_list.addOnItemTouchListener(new DrawerItemClickListener());
         SharedPreferences sharedPreferences = getSharedPreferences("Userinfo", MODE_PRIVATE);
-        new DashboardView.getstatus(sharedPreferences.getString("intofficerid", null),getIntent().getStringExtra("stage").toString()).execute();
+        if (internet()){
+            // Toast.makeText(getBaseContext(),"internet connected",Toast.LENGTH_SHORT).show();
+            new DashboardView.getstatus(sharedPreferences.getString("intofficerid", null),getIntent().getStringExtra("stage").toString()).execute();
+
+        }else {
+            showalert("Please Check Your Internet Connection...!!","notshow");
+        }
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,16 +152,17 @@ public class DashboardView extends Activity implements View.OnClickListener {
                                 value.getString("intGrivanceid")));
 
                     }
+                    RecyclerView.Adapter adapter = new DrilldownRecycler(drilldowns,DashboardView.this);
+                    dashboardDril_list.setAdapter(adapter);
+                }else {
+                    showalert("Server Busy At This Moment !!","hai");
                 }
-                RecyclerView.Adapter adapter = new DrilldownRecycler(drilldowns,DashboardView.this);
-                dashboardDril_list.setAdapter(adapter);
             } catch (JSONException e) {
                 e.printStackTrace();
                 showalert("Server Busy At This Moment !!","hai");
             }
         }
     }
-
     void showalert(String alert_msg, final String show) {
         android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(DashboardView.this);
         alertDialogBuilder.setTitle("E_Vijayawada");
@@ -175,6 +185,19 @@ public class DashboardView extends Activity implements View.OnClickListener {
         android.app.AlertDialog alertDialog = alertDialogBuilder.create();
         // show it
         alertDialog.show();
+    }
+    public Boolean internet(){
+        boolean connected = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            connected = true;
+        }
+        else
+            connected = false;
+
+        return connected;
     }
 
 }

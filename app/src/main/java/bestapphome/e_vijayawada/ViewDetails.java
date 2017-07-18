@@ -2,8 +2,12 @@ package bestapphome.e_vijayawada;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -69,7 +73,11 @@ public class ViewDetails extends Activity {
         progress.setCancelable(false);
         progress.show();
 
-        new ViewDetails.getstatus(getIntent().getStringExtra("id").toString(),getIntent().getStringExtra("app_number").toString()).execute();
+        if (internet()){
+            new ViewDetails.getstatus(getIntent().getStringExtra("id").toString(),getIntent().getStringExtra("app_number").toString()).execute();
+        }else {
+          showalert("Please Check Your Internet Connection..!!","notso");
+        }
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,5 +163,42 @@ public class ViewDetails extends Activity {
             }
         }
     }
+    public Boolean internet(){
+        boolean connected = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            connected = true;
+        }
+        else
+            connected = false;
+
+        return connected;
+    }
+    void showalert(String alert_msg, final String show) {
+        final android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(ViewDetails.this);
+        alertDialogBuilder.setTitle("E_Vijayawada");
+        // alertDialogBuilder.setIcon(R.drawable.aplogo);
+        // set dialog message
+        alertDialogBuilder.setMessage(alert_msg).setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+        alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        // create alert dialog
+        android.app.AlertDialog alertDialog = alertDialogBuilder.create();
+        // show it
+        alertDialog.show();
+    }
+
 
 }

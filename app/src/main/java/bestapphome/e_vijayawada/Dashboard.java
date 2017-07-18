@@ -2,9 +2,12 @@ package bestapphome.e_vijayawada;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -105,13 +108,19 @@ public class Dashboard extends Activity implements View.OnClickListener {
             @Override
             public void run() {
                 SharedPreferences sharedPreferences = getSharedPreferences("Userinfo", MODE_PRIVATE);
-                new Dashboard.getstatus(sharedPreferences.getString("intofficerid", null)).execute();
                 Animation slideUp2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoomin);
                 PendingBefore.startAnimation(slideUp2);
                 PendingAfter.startAnimation(slideUp2);
                 RedressedBefore.startAnimation(slideUp2);
                 RedressedAfter.startAnimation(slideUp2);
                 Rejected.startAnimation(slideUp2);
+                if (internet()){
+                    // Toast.makeText(getBaseContext(),"internet connected",Toast.LENGTH_SHORT).show();
+                    new Dashboard.getstatus(sharedPreferences.getString("intofficerid", null)).execute();
+
+                }else {
+                     showalert("Please Check Your Internet Connection...!!","notshow");
+                }
                 //Do something after 100ms
               //  Toast.makeText(getBaseContext(),"alskdflasd",Toast.LENGTH_SHORT).show();
             }
@@ -216,19 +225,24 @@ public class Dashboard extends Activity implements View.OnClickListener {
             // Toast.makeText(getApplicationContext(), json.toString(), Toast.LENGTH_SHORT).show();
           //  progress.dismiss();
             try {
-                JSONArray jsonObject = json.getJSONArray("dashboard");
-                for (int i = 0; i < jsonObject.length(); i++) {
-                    JSONObject value = jsonObject.getJSONObject(i);
-                    //    Toast.makeText(getApplicationContext(), value.getString("intUserid").toString(), Toast.LENGTH_SHORT).show();
-                     PendingBefore.setText(value.getString("PendingBefor"));
-                    PendingAfter.setText(value.getString("PendingAfter"));
-                    RedressedBefore.setText(value.getString("RedressedBefor"));
-                    RedressedAfter.setText(value.getString("RedressedAfter"));
-                    Rejected.setText(value.getString("Rejected"));
-                }
+                   if (json.getString("status").equals("1")){
+                       JSONArray jsonObject = json.getJSONArray("dashboard");
+
+                       for (int i = 0; i < jsonObject.length(); i++) {
+                           JSONObject value = jsonObject.getJSONObject(i);
+                           //    Toast.makeText(getApplicationContext(), value.getString("intUserid").toString(), Toast.LENGTH_SHORT).show();
+                           PendingBefore.setText(value.getString("PendingBefor"));
+                           PendingAfter.setText(value.getString("PendingAfter"));
+                           RedressedBefore.setText(value.getString("RedressedBefor"));
+                           RedressedAfter.setText(value.getString("RedressedAfter"));
+                           Rejected.setText(value.getString("Rejected"));
+                       }
+
+                   }else {
+                       showalert("Server Busy At This Moment !!","hai");
+                   }
             } catch (JSONException e) {
                 e.printStackTrace();
-
                 showalert("Server Busy At This Moment !!","hai");
             }
         }
@@ -256,6 +270,20 @@ public class Dashboard extends Activity implements View.OnClickListener {
         android.app.AlertDialog alertDialog = alertDialogBuilder.create();
         // show it
         alertDialog.show();
+    }
+
+    public Boolean internet(){
+        boolean connected = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            connected = true;
+        }
+        else
+            connected = false;
+
+        return connected;
     }
 
 }

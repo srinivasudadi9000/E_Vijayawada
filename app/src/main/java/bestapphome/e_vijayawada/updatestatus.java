@@ -13,6 +13,8 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
@@ -152,7 +154,12 @@ public class updatestatus extends Activity implements View.OnClickListener {
             progress.setCancelable(false);
             progress.show();
              search.setText(getIntent().getStringExtra("app_no"));
-             new updatestatus.getstatus("2017-VMC-" + search.getText().toString().substring(9, 13)).execute();
+            if (internet()){
+                new updatestatus.getstatus("2017-VMC-" + search.getText().toString().substring(9, 13)).execute();
+            }else {
+                progress.dismiss();
+                showalert("Please Check Your Internet connection","nots");
+            }
         }
         search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,8 +171,17 @@ public class updatestatus extends Activity implements View.OnClickListener {
                     progress.setIndeterminate(true);
                     progress.setCancelable(false);
                     progress.show();
-                    new updatestatus.getstatus("2017-VMC-" + search.getText().toString().substring(9, 13)).execute();
+                    if (internet()){
+                        new updatestatus.getstatus("2017-VMC-" + search.getText().toString().substring(9, 13)).execute();
+                       //new updatestatus.getstatus("2017-VMC-" + search.getText().toString().substring(9, 13)).execute();
+                    }
+                    else {
+                        showalert("Please Check Your Internet connection","not");
+                        progress.dismiss();
+                    }
 
+                }else {
+                    showalert("Enter Valid Grievance Number ","not");
                 }
             }
         });
@@ -210,7 +226,8 @@ public class updatestatus extends Activity implements View.OnClickListener {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+                    Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_NETWORK_STATE}, 0);
         }
 
     }
@@ -534,7 +551,13 @@ public class updatestatus extends Activity implements View.OnClickListener {
                     progress.setIndeterminate(true);
                     progress.setCancelable(false);
                     progress.show();
-                    uploadImage(remarks.getText().toString());
+                    if (internet()){
+                        uploadImage(remarks.getText().toString());
+
+                    }else {
+                        progress.dismiss();
+                        showalert("Please Check Your Internet connection","notshow");
+                    }
                 }
                 break;
             case R.id.dashbord_logout:
@@ -665,13 +688,10 @@ public class updatestatus extends Activity implements View.OnClickListener {
                     } else {
                         mylinear.setVisibility(View.VISIBLE);
                     }
-
-
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
                 //    Toast.makeText(getBaseContext(),"exception",Toast.LENGTH_SHORT).show();
-
                 showalert("Record Not Found !!! For This Grievance Id " + search.getText().toString(), "show");
             }
         }
@@ -757,6 +777,19 @@ public class updatestatus extends Activity implements View.OnClickListener {
 
         // Showing Alert Message
         alertDialog.show();
+    }
+    public Boolean internet(){
+        boolean connected = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            connected = true;
+        }
+        else
+            connected = false;
+
+        return connected;
     }
 
 
