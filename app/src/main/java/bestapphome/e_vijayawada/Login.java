@@ -98,12 +98,11 @@ public class Login extends Activity implements View.OnClickListener {
                     progress.show();
                     if (internet()){
                        // Toast.makeText(getBaseContext(),"internet connected",Toast.LENGTH_SHORT).show();
-                        new Login.getstatus(input_usename.getText().toString(), input_password.getText().toString()).execute();
                     }else {
                         progress.dismiss();
                         showalert("Please Check Your Internet Connection...!!");
                     }
-
+                    new Login.getstatus(input_usename.getText().toString(), input_password.getText().toString()).execute();
                 }
                 break;
             case R.id.input_usename:

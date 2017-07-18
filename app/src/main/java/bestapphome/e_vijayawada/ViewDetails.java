@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -41,7 +42,7 @@ public class ViewDetails extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_details);
-
+        clearPreferences();
         grievance_remarks = (TextView) findViewById(R.id.grievance_remarks);
         back = (ImageView)findViewById(R.id.back);
         griev_status = (TextView) findViewById(R.id.griev_status);
@@ -85,6 +86,15 @@ public class ViewDetails extends Activity {
               /*  Intent i = new Intent(ViewDetails.this,updatestatus.class);
                 startActivity(i);*/
                 finish();
+            }
+        });
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences ss = getSharedPreferences("validuser", MODE_PRIVATE);
+                SharedPreferences.Editor ee = ss.edit();
+                ee.putString("name", "");
+                ee.commit();
             }
         });
     }
@@ -155,6 +165,28 @@ public class ViewDetails extends Activity {
                                 .resize(100,100)
                                 //this is also optional if some error has occurred in downloading the image this image would be displayed
                                 .into(grievance_photo3);
+
+                    if (grievance_photo1.getDrawable() == null){
+                        //Image doesn´t exist.
+                       // Toast.makeText(getBaseContext(),"image not attatched",Toast.LENGTH_SHORT).show();
+                        Picasso.with(ViewDetails.this)
+                                .load("http://" + value.getString("GrievancePhotoPath1"))
+                                .resize(100,100)
+                                //this is also optional if some error has occurred in downloading the image this image would be displayed
+                                .into(grievance_photo1);
+                        Picasso.with(ViewDetails.this)
+                                .load("http://" + value.getString("GrievancePhotoPath2"))
+                                .resize(120, 120)
+                                //this is also optional if some error has occurred in downloading the image this image would be displayed
+                                .into(grievance_photo2);
+                        Picasso.with(ViewDetails.this)
+                                .load("http://" + value.getString("GrievancePhotoPath3"))
+                                .resize(120, 120)
+                                //this is also optional if some error has occurred in downloading the image this image would be displayed
+                                .into(grievance_photo3);
+                    }else{
+                        //Image Exists!.
+                    }
                     }
 
              } catch (JSONException e) {
@@ -200,5 +232,15 @@ public class ViewDetails extends Activity {
         alertDialog.show();
     }
 
+    private void clearPreferences() {
+        try {
+            // clearing app data
+            Runtime runtime = Runtime.getRuntime();
+            runtime.exec("pm clear YOUR_APP_PACKAGE_GOES HERE");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

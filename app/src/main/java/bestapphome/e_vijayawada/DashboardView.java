@@ -46,9 +46,9 @@ public class DashboardView extends Activity implements View.OnClickListener {
         dashboardDril_list = (RecyclerView)findViewById(R.id.dashboardDril_list);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         dashboardDril_list.setLayoutManager(layoutManager);
+        clearPreferences();
 
         drilldowns = new ArrayList<Drilldown>();
-
         dashboardDril_list.addOnItemTouchListener(new DrawerItemClickListener());
         SharedPreferences sharedPreferences = getSharedPreferences("Userinfo", MODE_PRIVATE);
         if (internet()){
@@ -198,6 +198,16 @@ public class DashboardView extends Activity implements View.OnClickListener {
             connected = false;
 
         return connected;
+    }
+    private void clearPreferences() {
+        try {
+            // clearing app data
+            Runtime runtime = Runtime.getRuntime();
+            runtime.exec("pm clear YOUR_APP_PACKAGE_GOES HERE");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

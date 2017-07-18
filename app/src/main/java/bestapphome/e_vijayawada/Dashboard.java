@@ -46,6 +46,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard);
+        clearPreferences();
         logout = (TextView)findViewById(R.id.dashbord_logout);
         back = (ImageView)findViewById(R.id.back);
         progress1 = (ProgressBar) findViewById(R.id.progress1);
@@ -72,6 +73,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         progress.setCancelable(false);
         progress.show();
 */
+
 
         new Thread(new Runnable() {
             public void run() {
@@ -189,6 +191,10 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 finish();
                 break;
             case R.id.dashbord_logout:
+                SharedPreferences ss = getSharedPreferences("validuser", MODE_PRIVATE);
+                SharedPreferences.Editor ee = ss.edit();
+                ee.putString("name", "");
+                ee.commit();
                Intent login = new Intent(Dashboard.this,Login.class);
                 startActivity(login);
                 finish();
@@ -285,5 +291,17 @@ public class Dashboard extends Activity implements View.OnClickListener {
 
         return connected;
     }
+
+    private void clearPreferences() {
+        try {
+            // clearing app data
+            Runtime runtime = Runtime.getRuntime();
+            runtime.exec("pm clear YOUR_APP_PACKAGE_GOES HERE");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

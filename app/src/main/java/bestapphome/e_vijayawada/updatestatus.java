@@ -684,6 +684,27 @@ public class updatestatus extends Activity implements View.OnClickListener {
                         if (ed.getString("button", "").equals("button")){
                             showalert("Grievance Status Already Updated Thankyou !!", "notsho");
                         }
+                        if (grievance_photo1.getDrawable() == null){
+                            //Image doesn´t exist.
+                           // Toast.makeText(getBaseContext(),"image not attatched",Toast.LENGTH_SHORT).show();
+                            Picasso.with(updatestatus.this)
+                                    .load("http://" + value.getString("GrievancePhotoPath1"))
+                                    .resize(100,100)
+                                    //this is also optional if some error has occurred in downloading the image this image would be displayed
+                                    .into(grievance_photo1);
+                            Picasso.with(updatestatus.this)
+                                    .load("http://" + value.getString("GrievancePhotoPath2"))
+                                    .resize(120, 120)
+                                    //this is also optional if some error has occurred in downloading the image this image would be displayed
+                                    .into(grievance_photo2);
+                            Picasso.with(updatestatus.this)
+                                    .load("http://" + value.getString("GrievancePhotoPath3"))
+                                    .resize(120, 120)
+                                    //this is also optional if some error has occurred in downloading the image this image would be displayed
+                                    .into(grievance_photo3);
+                        }else{
+                            //Image Exists!.
+                        }
                         // uploadImage(remarks.getText().toString());
                     } else {
                         mylinear.setVisibility(View.VISIBLE);
