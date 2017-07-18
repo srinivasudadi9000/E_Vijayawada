@@ -618,78 +618,57 @@ public class updatestatus extends Activity implements View.OnClickListener {
             // Toast.makeText(getApplicationContext(), json.toString(), Toast.LENGTH_SHORT).show();
             progress.dismiss();
             try {
-                JSONArray jsonObject = json.getJSONArray("users");
-                for (int i = 0; i < jsonObject.length(); i++) {
-                    JSONObject value = jsonObject.getJSONObject(i);
-                    //    Toast.makeText(getApplicationContext(), value.getString("intUserid").toString(), Toast.LENGTH_SHORT).show();
-                    application_no.setText(value.getString("App_No"));
-                    grievance_type.setText(value.getString("ServiceName"));
-                    applicant_name.setText(value.getString("ApplicantName"));
-                    mobile_number.setText(value.getString("ApplMobile"));
-                    concern_officer.setText(value.getString("OfficerName"));
-                    aadhar_no.setText(value.getString("OfficerPhoneNo"));
-                    depart_name.setText(value.getString("DepartmentName"));
-                    ward_no.setText(value.getString("WardNo"));
-                    locality.setText(value.getString("LocalityName"));
-                    doorno.setText(value.getString("DoorNo"));
-                    address_tv.setText(value.getString("ApplAddress"));
-                    grievance_des_tv.setText(value.getString("GrievanceDesc"));
-                    Picasso.with(updatestatus.this)
-                            .load("http://" + value.getString("GrievancePhotoPath1"))
-                            //this is also optional if some error has occurred in downloading the image this image would be displayed
-                            .into(image_one);
-                    Picasso.with(updatestatus.this)
-                            .load("http://" + value.getString("GrievancePhotoPath2"))
-                            //this is also optional if some error has occurred in downloading the image this image would be displayed
-                            .into(image_two);
-                    Picasso.with(updatestatus.this)
-                            .load("http://" + value.getString("GrievancePhotoPath3"))
-                            //this is also optional if some error has occurred in downloading the image this image would be displayed
-                            .into(image_three);
-                    exactstatus = value.getString("Status");
-
-                    SharedPreferences sharedPreferences = getSharedPreferences("app_info", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("intGrivanceid", value.getString("intGrivanceid"));
-                    editor.putString("App_No", value.getString("App_No"));
-                    editor.commit();
-
-                    if (exactstatus.equals("Rejected") || exactstatus.equals("Redressed")) {
-
-                        mylinear.setVisibility(View.GONE);
-                        grievance_status.setVisibility(View.VISIBLE);
-                        grievance_Remark.setVisibility(View.VISIBLE);
-                        grievance_phot.setVisibility(View.VISIBLE);
-                        grievance_file2.setVisibility(View.VISIBLE);
-                        grievance_file3.setVisibility(View.VISIBLE);
-                        griev_status.setText(value.getString("Status"));
-
-                        grievance_remarks.setText(value.getString("remarks"));
+                if (json.getString("status").equals("1")) {
+                    JSONArray jsonObject = json.getJSONArray("users");
+                    for (int i = 0; i < jsonObject.length(); i++) {
+                        JSONObject value = jsonObject.getJSONObject(i);
+                        //    Toast.makeText(getApplicationContext(), value.getString("intUserid").toString(), Toast.LENGTH_SHORT).show();
+                        application_no.setText(value.getString("App_No"));
+                        grievance_type.setText(value.getString("ServiceName"));
+                        applicant_name.setText(value.getString("ApplicantName"));
+                        mobile_number.setText(value.getString("ApplMobile"));
+                        concern_officer.setText(value.getString("OfficerName"));
+                        aadhar_no.setText(value.getString("OfficerPhoneNo"));
+                        depart_name.setText(value.getString("DepartmentName"));
+                        ward_no.setText(value.getString("WardNo"));
+                        locality.setText(value.getString("LocalityName"));
+                        doorno.setText(value.getString("DoorNo"));
+                        address_tv.setText(value.getString("ApplAddress"));
+                        grievance_des_tv.setText(value.getString("GrievanceDesc"));
                         Picasso.with(updatestatus.this)
                                 .load("http://" + value.getString("GrievancePhotoPath1"))
-                                .resize(120, 120)
                                 //this is also optional if some error has occurred in downloading the image this image would be displayed
-                                .into(grievance_photo1);
+                                .into(image_one);
                         Picasso.with(updatestatus.this)
                                 .load("http://" + value.getString("GrievancePhotoPath2"))
-                                .resize(120, 120)
                                 //this is also optional if some error has occurred in downloading the image this image would be displayed
-                                .into(grievance_photo2);
+                                .into(image_two);
                         Picasso.with(updatestatus.this)
                                 .load("http://" + value.getString("GrievancePhotoPath3"))
-                                .resize(120, 120)
                                 //this is also optional if some error has occurred in downloading the image this image would be displayed
-                                .into(grievance_photo3);
-                        SharedPreferences ed = getSharedPreferences("Back", MODE_PRIVATE);
-                        if (ed.getString("button", "").equals("button")){
-                            showalert("Grievance Status Already Updated Thankyou !!", "notsho");
-                        }
-                        if (grievance_photo1.getDrawable() == null){
-                            //Image doesn´t exist.
-                           // Toast.makeText(getBaseContext(),"image not attatched",Toast.LENGTH_SHORT).show();
+                                .into(image_three);
+                        exactstatus = value.getString("Status");
+
+                        SharedPreferences sharedPreferences = getSharedPreferences("app_info", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("intGrivanceid", value.getString("intGrivanceid"));
+                        editor.putString("App_No", value.getString("App_No"));
+                        editor.commit();
+
+                        if (exactstatus.equals("Rejected") || exactstatus.equals("Redressed")) {
+
+                            mylinear.setVisibility(View.GONE);
+                            grievance_status.setVisibility(View.VISIBLE);
+                            grievance_Remark.setVisibility(View.VISIBLE);
+                            grievance_phot.setVisibility(View.VISIBLE);
+                            grievance_file2.setVisibility(View.VISIBLE);
+                            grievance_file3.setVisibility(View.VISIBLE);
+                            griev_status.setText(value.getString("Status"));
+
+                            grievance_remarks.setText(value.getString("remarks"));
                             Picasso.with(updatestatus.this)
                                     .load("http://" + value.getString("GrievancePhotoPath1"))
-                                    .resize(100,100)
+                                    .resize(120, 120)
                                     //this is also optional if some error has occurred in downloading the image this image would be displayed
                                     .into(grievance_photo1);
                             Picasso.with(updatestatus.this)
@@ -702,13 +681,38 @@ public class updatestatus extends Activity implements View.OnClickListener {
                                     .resize(120, 120)
                                     //this is also optional if some error has occurred in downloading the image this image would be displayed
                                     .into(grievance_photo3);
-                        }else{
-                            //Image Exists!.
+                            SharedPreferences ed = getSharedPreferences("Back", MODE_PRIVATE);
+                            if (ed.getString("button", "").equals("button")) {
+                                showalert("Grievance Status Already Updated Thankyou !!", "notsho");
+                            }
+                            if (grievance_photo1.getDrawable() == null) {
+                                //Image doesn´t exist.
+                                // Toast.makeText(getBaseContext(),"image not attatched",Toast.LENGTH_SHORT).show();
+                                Picasso.with(updatestatus.this)
+                                        .load("http://" + value.getString("GrievancePhotoPath1"))
+                                        .resize(100, 100)
+                                        //this is also optional if some error has occurred in downloading the image this image would be displayed
+                                        .into(grievance_photo1);
+                                Picasso.with(updatestatus.this)
+                                        .load("http://" + value.getString("GrievancePhotoPath2"))
+                                        .resize(120, 120)
+                                        //this is also optional if some error has occurred in downloading the image this image would be displayed
+                                        .into(grievance_photo2);
+                                Picasso.with(updatestatus.this)
+                                        .load("http://" + value.getString("GrievancePhotoPath3"))
+                                        .resize(120, 120)
+                                        //this is also optional if some error has occurred in downloading the image this image would be displayed
+                                        .into(grievance_photo3);
+                            } else {
+                                //Image Exists!.
+                            }
+                            // uploadImage(remarks.getText().toString());
+                        } else {
+                            mylinear.setVisibility(View.VISIBLE);
                         }
-                        // uploadImage(remarks.getText().toString());
-                    } else {
-                        mylinear.setVisibility(View.VISIBLE);
                     }
+                }else {
+                    showalert("No Data Found For This Grievance Id","show");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

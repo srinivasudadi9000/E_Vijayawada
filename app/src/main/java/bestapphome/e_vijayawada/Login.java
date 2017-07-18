@@ -169,7 +169,8 @@ public class Login extends Activity implements View.OnClickListener {
                     showalert(" Invalid User Credentials ");
                 }
             } catch (JSONException e) {
-                showalert(" Invalid User Credentials ");
+                new Login.getstatus(input_usename.getText().toString(), input_password.getText().toString()).execute();
+                //showalert(" Please Try Again..");
             }
         }
     }
