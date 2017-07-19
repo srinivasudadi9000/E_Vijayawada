@@ -42,11 +42,11 @@ public class DashboardView extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard_view);
+        clearPreferences();
         back = (ImageView)findViewById(R.id.back);
         dashboardDril_list = (RecyclerView)findViewById(R.id.dashboardDril_list);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         dashboardDril_list.setLayoutManager(layoutManager);
-        clearPreferences();
 
         drilldowns = new ArrayList<Drilldown>();
         dashboardDril_list.addOnItemTouchListener(new DrawerItemClickListener());

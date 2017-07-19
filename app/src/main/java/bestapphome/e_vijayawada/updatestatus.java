@@ -556,6 +556,7 @@ public class updatestatus extends Activity implements View.OnClickListener {
                             progress.dismiss();
                             showalert("Please turn on your location / gps","gps");
                         }else {
+
                             uploadImage(remarks.getText().toString());
                         }
                     }else {
@@ -755,7 +756,7 @@ public class updatestatus extends Activity implements View.OnClickListener {
                             i.putExtra("id", officerid);
                             i.putExtra("app_number", "2017-VMC-" + show.toString().substring(9, 13));
                             startActivity(i);
-
+                            finish();
                         }else if (show.equals("gps")){
                               showSettingsAlert();
                         }
