@@ -142,6 +142,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
                     Intent i = new Intent(Dashboard.this, DashboardView.class);
                     i.putExtra("stage", "2");
                     startActivity(i);
+                    finish();
                 }
                 break;
             case R.id.progress2:
@@ -152,6 +153,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
                     Intent i2 = new Intent(Dashboard.this,DashboardView.class);
                     i2.putExtra("stage","3");
                     startActivity(i2);
+                    finish();
                 }
 
                 break;
@@ -163,6 +165,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
                     Intent i3 = new Intent(Dashboard.this,DashboardView.class);
                     i3.putExtra("stage","4");
                     startActivity(i3);
+                    finish();
                 }
                 break;
             case R.id.progress4:
@@ -173,6 +176,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
                     Intent i4 = new Intent(Dashboard.this,DashboardView.class);
                     i4.putExtra("stage","5");
                     startActivity(i4);
+                    finish();
                 }
                 break;
             case R.id.progress5:
@@ -183,6 +187,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
                     Intent i5 = new Intent(Dashboard.this,DashboardView.class);
                     i5.putExtra("stage","6");
                     startActivity(i5);
+                    finish();
                 }
                 break;
             case R.id.back:

@@ -62,6 +62,8 @@ public class DashboardView extends Activity implements View.OnClickListener {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent i = new Intent(DashboardView.this,Dashboard.class);
+                startActivity(i);
                 finish();
             }
         });
@@ -95,6 +97,7 @@ public class DashboardView extends Activity implements View.OnClickListener {
                 i.putExtra("class","dashboardview");
                 i.putExtra("app_no",drilldowns.get(position).getApplicationno().toString());
                 startActivity(i);
+                finish();
 
             }
             return false;

@@ -156,12 +156,14 @@ public class updatestatus extends Activity implements View.OnClickListener {
             progress.show();
              search.setText(getIntent().getStringExtra("app_no"));
             if (internet()){
+
                 new updatestatus.getstatus("2017-VMC-" + search.getText().toString().substring(9, 13)).execute();
             }else {
                 progress.dismiss();
                 showalert("Please Check Your Internet connection","nots");
             }
         }
+      //   uploadImage(remarks.getText().toString());
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -173,6 +175,7 @@ public class updatestatus extends Activity implements View.OnClickListener {
                     progress.setCancelable(false);
                     progress.show();
                     if (internet()){
+
                         new updatestatus.getstatus("2017-VMC-" + search.getText().toString().substring(9, 13)).execute();
                        //new updatestatus.getstatus("2017-VMC-" + search.getText().toString().substring(9, 13)).execute();
                     }
@@ -390,7 +393,7 @@ public class updatestatus extends Activity implements View.OnClickListener {
                 data.put("intGrivanceid", sharedPreferences1.getString("intGrivanceid", ""));
                 data.put("App_No", sharedPreferences1.getString("App_No", ""));
                 data.put("Status", App_status);
-                // data.put("Status", "Pending");
+                //  data.put("Status", "Pending");
                 data.put("remarks", remarks);
                 //data.put("remarks", "REMARKS");
                 data.put("GLatitude", latitude);
@@ -576,7 +579,7 @@ public class updatestatus extends Activity implements View.OnClickListener {
                 finish();
                 break;
             case R.id.back:
-                SharedPreferences  editor = getSharedPreferences("Back", MODE_PRIVATE);
+               /* SharedPreferences  editor = getSharedPreferences("Back", MODE_PRIVATE);
                 if (editor.getString("button", "").equals("button")){
                     SharedPreferences.Editor ed = getSharedPreferences("Back", MODE_PRIVATE).edit();
                     ed.putString("button", "dashboard");
@@ -587,7 +590,10 @@ public class updatestatus extends Activity implements View.OnClickListener {
                     break;
                 }else {
                     finish();
-                }
+                }*/
+                Intent back = new Intent(updatestatus.this,Dashboard.class);
+                startActivity(back);
+                finish();
 
         }
 

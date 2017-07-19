@@ -47,7 +47,7 @@ public class SelectList extends Activity implements View.OnClickListener {
             case R.id.btn_submit:
                 Intent i = new Intent(SelectList.this, Dashboard.class);
                 startActivity(i);
-                finish();
+              //  finish();
                 break;
             case R.id.knowstatus:
                 Intent ii = new Intent(SelectList.this, updatestatus.class);
