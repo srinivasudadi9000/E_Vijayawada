@@ -86,6 +86,7 @@ public class updatestatus extends Activity implements View.OnClickListener {
     Button clear;
     GPSTracker gps;
     RelativeLayout dashbord_logout;
+    String latitude,longitude;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -192,9 +193,8 @@ public class updatestatus extends Activity implements View.OnClickListener {
             Log.d("networkd", "false");
             showSettingsAlert();
         }else {
-            String latitude = String.valueOf(gps.getLatitude());
-            String longitude = String.valueOf(gps.getLongitude());
-
+              latitude = String.valueOf(gps.getLatitude());
+              longitude = String.valueOf(gps.getLongitude());
            // Toast.makeText(getBaseContext(),latitude+" "+longitude  ,Toast.LENGTH_SHORT).show();
         }
 
@@ -378,8 +378,8 @@ public class updatestatus extends Activity implements View.OnClickListener {
                 } else {
                     uploadImage3 = getStringImage(scaledBitmap3);
                 }
-                String latitude = String.valueOf(gps.getLatitude());
-                String longitude = String.valueOf(gps.getLongitude());
+                /*String latitude = String.valueOf(gps.getLatitude());
+                String longitude = String.valueOf(gps.getLongitude());*/
 
                // Toast.makeText(getBaseContext(),latitude+" "+longitude  ,Toast.LENGTH_SHORT).show();
 
@@ -552,8 +552,12 @@ public class updatestatus extends Activity implements View.OnClickListener {
                     progress.setCancelable(false);
                     progress.show();
                     if (internet()){
-                        uploadImage(remarks.getText().toString());
-
+                        if (String.valueOf(gps.getLatitude()).equals("0.00")){
+                            progress.dismiss();
+                            showalert("Please turn on your location / gps","gps");
+                        }else {
+                            uploadImage(remarks.getText().toString());
+                        }
                     }else {
                         progress.dismiss();
                         showalert("Please Check Your Internet connection","notshow");
@@ -752,6 +756,8 @@ public class updatestatus extends Activity implements View.OnClickListener {
                             i.putExtra("app_number", "2017-VMC-" + show.toString().substring(9, 13));
                             startActivity(i);
 
+                        }else if (show.equals("gps")){
+                              showSettingsAlert();
                         }
                     }
                 });

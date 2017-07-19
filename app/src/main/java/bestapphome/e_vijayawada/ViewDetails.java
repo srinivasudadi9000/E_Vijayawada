@@ -64,7 +64,7 @@ public class ViewDetails extends Activity {
         grievance_photo1 = (ImageView) findViewById(R.id.grievance_photo1);
         grievance_photo2 = (ImageView) findViewById(R.id.grievance_photo2);
         grievance_photo3 = (ImageView) findViewById(R.id.grievance_photo3);
-        logout = (TextView) findViewById(R.id.logout);
+       // logout = (TextView) findViewById(R.id.dashbord_logout);
         submit = (Button) findViewById(R.id.submit);
 
         progress = new ProgressDialog(ViewDetails.this);
@@ -88,7 +88,7 @@ public class ViewDetails extends Activity {
                 finish();
             }
         });
-        logout.setOnClickListener(new View.OnClickListener() {
+     /*   logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SharedPreferences ss = getSharedPreferences("validuser", MODE_PRIVATE);
@@ -96,7 +96,7 @@ public class ViewDetails extends Activity {
                 ee.putString("name", "");
                 ee.commit();
             }
-        });
+        });*/
     }
 
     private class getstatus extends AsyncTask<String, String, JSONObject> {

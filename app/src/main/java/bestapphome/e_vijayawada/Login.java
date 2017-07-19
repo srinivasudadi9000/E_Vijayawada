@@ -87,9 +87,6 @@ public class Login extends Activity implements View.OnClickListener {
                     showalert("Password should not be empty");
 
                 } else {
-
-
-
                     progress = new ProgressDialog(this);
                     progress.setMessage("Authenticating User..");
                     progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -97,12 +94,12 @@ public class Login extends Activity implements View.OnClickListener {
                     progress.setCancelable(false);
                     progress.show();
                     if (internet()){
-                       // Toast.makeText(getBaseContext(),"internet connected",Toast.LENGTH_SHORT).show();
+                        new Login.getstatus(input_usename.getText().toString(), input_password.getText().toString()).execute();
+                        // Toast.makeText(getBaseContext(),"internet connected",Toast.LENGTH_SHORT).show();
                     }else {
                         progress.dismiss();
                         showalert("Please Check Your Internet Connection...!!");
                     }
-                    new Login.getstatus(input_usename.getText().toString(), input_password.getText().toString()).execute();
                 }
                 break;
             case R.id.input_usename:
