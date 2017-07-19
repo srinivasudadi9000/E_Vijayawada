@@ -40,7 +40,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
     int i = 0;
     ProgressDialog progress;
     ImageView back;
-    TextView logout;
+    TextView logout,dash_of_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +48,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         setContentView(R.layout.dashboard);
         clearPreferences();
         logout = (TextView)findViewById(R.id.dashbord_logout);
+        dash_of_name = (TextView)findViewById(R.id.dash_of_name);
         back = (ImageView)findViewById(R.id.back);
         progress1 = (ProgressBar) findViewById(R.id.progress1);
         progress2 = (ProgressBar) findViewById(R.id.progress2);
@@ -73,6 +74,9 @@ public class Dashboard extends Activity implements View.OnClickListener {
         progress.setCancelable(false);
         progress.show();
 */
+
+        SharedPreferences sharedPreferences = getSharedPreferences("Userinfo", MODE_PRIVATE);
+        dash_of_name.setText(sharedPreferences.getString("username", ""));
 
 
         new Thread(new Runnable() {
