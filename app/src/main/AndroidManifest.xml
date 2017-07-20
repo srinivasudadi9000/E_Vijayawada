@@ -36,7 +36,8 @@
             android:name=".home"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".updatestatus" />
+        <activity android:name=".updatestatus"
+            android:screenOrientation="portrait" />
         <activity android:name=".ViewDetails" />
         <activity android:name=".Dashboard" />
         <activity android:name=".SelectList" />
