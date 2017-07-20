@@ -156,7 +156,6 @@ public class updatestatus extends Activity implements View.OnClickListener {
             progress.show();
              search.setText(getIntent().getStringExtra("app_no"));
             if (internet()){
-
                 new updatestatus.getstatus("2017-VMC-" + search.getText().toString().substring(9, 13)).execute();
             }else {
                 progress.dismiss();
@@ -175,7 +174,6 @@ public class updatestatus extends Activity implements View.OnClickListener {
                     progress.setCancelable(false);
                     progress.show();
                     if (internet()){
-
                         new updatestatus.getstatus("2017-VMC-" + search.getText().toString().substring(9, 13)).execute();
                        //new updatestatus.getstatus("2017-VMC-" + search.getText().toString().substring(9, 13)).execute();
                     }
@@ -183,7 +181,6 @@ public class updatestatus extends Activity implements View.OnClickListener {
                         showalert("Please Check Your Internet connection","not");
                         progress.dismiss();
                     }
-
                 }else {
                     showalert("Enter Valid Grievance Number ","not");
                 }
