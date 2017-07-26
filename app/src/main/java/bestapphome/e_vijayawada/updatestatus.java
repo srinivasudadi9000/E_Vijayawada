@@ -69,7 +69,7 @@ public class updatestatus extends Activity implements View.OnClickListener {
     TextView application_no, grievance_type, applicant_name, mobile_number, concern_officer, aadhar_no, depart_name, ward_no,
             locality, doorno, address_tv, grievance_des_tv, officername, griev_status;
     TextView photo_one, photo_two, photo_three, submit, logout, grievance_remarks;
-    public ImageView image_one, image_two, image_three, grievance_photo2, grievance_photo1, grievance_photo3,back;
+    public ImageView image_one, image_two, image_three, grievance_photo2, grievance_photo1, grievance_photo3, back;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     Dialog dialog;
     private Bitmap bitmap;
@@ -86,7 +86,8 @@ public class updatestatus extends Activity implements View.OnClickListener {
     Button clear;
     GPSTracker gps;
     RelativeLayout dashbord_logout;
-    String latitude,longitude;
+    String latitude, longitude;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -142,11 +143,11 @@ public class updatestatus extends Activity implements View.OnClickListener {
         SharedPreferences sharedPreferences = getSharedPreferences("Userinfo", MODE_PRIVATE);
         officername.setText(sharedPreferences.getString("username", ""));
 
-        SharedPreferences  editor = getSharedPreferences("Back", MODE_PRIVATE);
-        if (editor.getString("button", "").equals("button")){
+        SharedPreferences editor = getSharedPreferences("Back", MODE_PRIVATE);
+        if (editor.getString("button", "").equals("button")) {
             search.setText("2017-VMC-");
             search.setSelection(search.getText().length());
-        }else {
+        } else {
             search.setVisibility(View.GONE);
             progress = new ProgressDialog(updatestatus.this);
             progress.setMessage("Fetching data from server..");
@@ -154,15 +155,19 @@ public class updatestatus extends Activity implements View.OnClickListener {
             progress.setIndeterminate(true);
             progress.setCancelable(false);
             progress.show();
-             search.setText(getIntent().getStringExtra("app_no"));
-            if (internet()){
-                new updatestatus.getstatus("2017-VMC-" + search.getText().toString().substring(9, 13)).execute();
-            }else {
+            search.setText(getIntent().getStringExtra("app_no"));
+            if (internet()) {
+                if (search.getText().toString().length() > 0) {
+                    new updatestatus.getstatus("2017-VMC-" + search.getText().toString().substring(9, 13)).execute();
+                } else {
+                    progress.dismiss();
+                }
+            } else {
                 progress.dismiss();
-                showalert("Please Check Your Internet connection","nots");
+                showalert("Please Check Your Internet connection", "nots");
             }
         }
-      //   uploadImage(remarks.getText().toString());
+        //   uploadImage(remarks.getText().toString());
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -173,16 +178,15 @@ public class updatestatus extends Activity implements View.OnClickListener {
                     progress.setIndeterminate(true);
                     progress.setCancelable(false);
                     progress.show();
-                    if (internet()){
+                    if (internet()) {
                         new updatestatus.getstatus("2017-VMC-" + search.getText().toString().substring(9, 13)).execute();
-                       //new updatestatus.getstatus("2017-VMC-" + search.getText().toString().substring(9, 13)).execute();
-                    }
-                    else {
-                        showalert("Please Check Your Internet connection","not");
+                        //new updatestatus.getstatus("2017-VMC-" + search.getText().toString().substring(9, 13)).execute();
+                    } else {
+                        showalert("Please Check Your Internet connection", "not");
                         progress.dismiss();
                     }
-                }else {
-                    showalert("Enter Valid Grievance Number ","not");
+                } else {
+                    showalert("Enter Valid Grievance Number ", "not");
                 }
             }
         });
@@ -192,17 +196,19 @@ public class updatestatus extends Activity implements View.OnClickListener {
         if (!gps.isGPSEnabled && !gps.isNetworkEnabled) {
             Log.d("networkd", "false");
             showSettingsAlert();
-        }else {
-              latitude = String.valueOf(gps.getLatitude());
-              longitude = String.valueOf(gps.getLongitude());
-           // Toast.makeText(getBaseContext(),latitude+" "+longitude  ,Toast.LENGTH_SHORT).show();
+        } else {
+            latitude = String.valueOf(gps.getLatitude());
+            longitude = String.valueOf(gps.getLongitude());
+            // Toast.makeText(getBaseContext(),latitude+" "+longitude  ,Toast.LENGTH_SHORT).show();
         }
 
         clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(updatestatus.this, updatestatus.class);
+                i.putExtra("app_no", getIntent().getStringExtra("app_no"));
                 startActivity(i);
+                finish();
             }
         });
         final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -227,7 +233,7 @@ public class updatestatus extends Activity implements View.OnClickListener {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,
                     Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_NETWORK_STATE}, 0);
+                    Manifest.permission.ACCESS_NETWORK_STATE}, 0);
         }
 
     }
@@ -381,7 +387,7 @@ public class updatestatus extends Activity implements View.OnClickListener {
                 /*String latitude = String.valueOf(gps.getLatitude());
                 String longitude = String.valueOf(gps.getLongitude());*/
 
-               // Toast.makeText(getBaseContext(),latitude+" "+longitude  ,Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getBaseContext(),latitude+" "+longitude  ,Toast.LENGTH_SHORT).show();
 
                 SharedPreferences sharedPreferences1 = getSharedPreferences("app_info", MODE_PRIVATE);
                 HashMap<String, String> data = new HashMap<>();
@@ -551,17 +557,17 @@ public class updatestatus extends Activity implements View.OnClickListener {
                     progress.setIndeterminate(true);
                     progress.setCancelable(false);
                     progress.show();
-                    if (internet()){
-                        if (String.valueOf(gps.getLatitude()).equals("0.00")){
+                    if (internet()) {
+                        if (String.valueOf(gps.getLatitude()).equals("0.00")) {
                             progress.dismiss();
-                            showalert("Please turn on your location / gps","gps");
-                        }else {
+                            showalert("Please turn on your location / gps", "gps");
+                        } else {
 
                             uploadImage(remarks.getText().toString());
                         }
-                    }else {
+                    } else {
                         progress.dismiss();
-                        showalert("Please Check Your Internet connection","notshow");
+                        showalert("Please Check Your Internet connection", "notshow");
                     }
                 }
                 break;
@@ -588,7 +594,7 @@ public class updatestatus extends Activity implements View.OnClickListener {
                 }else {
                     finish();
                 }*/
-                Intent back = new Intent(updatestatus.this,Dashboard.class);
+                Intent back = new Intent(updatestatus.this, Dashboard.class);
                 startActivity(back);
                 finish();
 
@@ -719,8 +725,8 @@ public class updatestatus extends Activity implements View.OnClickListener {
                             mylinear.setVisibility(View.VISIBLE);
                         }
                     }
-                }else {
-                    showalert("No Data Found For This Grievance Id","show");
+                } else {
+                    showalert("No Data Found For This Grievance Id", "show");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -760,8 +766,8 @@ public class updatestatus extends Activity implements View.OnClickListener {
                             i.putExtra("app_number", "2017-VMC-" + show.toString().substring(9, 13));
                             startActivity(i);
                             finish();
-                        }else if (show.equals("gps")){
-                              showSettingsAlert();
+                        } else if (show.equals("gps")) {
+                            showSettingsAlert();
                         }
                     }
                 });
@@ -813,15 +819,15 @@ public class updatestatus extends Activity implements View.OnClickListener {
         // Showing Alert Message
         alertDialog.show();
     }
-    public Boolean internet(){
+
+    public Boolean internet() {
         boolean connected = false;
-        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
             //we are connected to a network
             connected = true;
-        }
-        else
+        } else
             connected = false;
 
         return connected;
